@@ -1,0 +1,16 @@
+#include "Gerente.h"
+#include <string>
+#include "Funcionario.h"
+
+class Dono
+{
+    protected:
+        int _codigo;
+        std::string _nome;
+
+    public:
+        void definir_salario(Funcionario &aux);
+        void demitir_gerente();
+        void contratar_gerente();
+
+};
