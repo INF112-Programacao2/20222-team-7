@@ -9,5 +9,8 @@ class Item
         int _codigo;
 
     public:
-
+        std::string get_nome();
+        double get_preco();
+        double get_tempo_preparo();
+        int get_codigo();
 };

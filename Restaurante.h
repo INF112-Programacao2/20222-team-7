@@ -6,7 +6,7 @@
 
 class Restaurante
 {
-    protected:
+    private:
         double _avaliacaomedia;
         Dono _dono;
         std::string _localizacao;
@@ -18,5 +18,12 @@ class Restaurante
         std::string _telefone;
 
     public:
+        double get_avaliacaomedia();
+        Dono get_dono(); //Esse get talvez possa ser apagado
+        std::string get_localizacao();
+        std::string get_nome();
+        int get_num_funcionarios();
+        std::string get_horario_funcionamento(); 
+        std::string get_telefone();
         
 };

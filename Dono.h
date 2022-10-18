@@ -4,7 +4,7 @@
 
 class Dono
 {
-    protected:
+    private:
         int _codigo;
         std::string _nome;
 

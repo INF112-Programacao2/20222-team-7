@@ -2,7 +2,7 @@
 
 class Funcionario
 {
-    protected:
+    private:
         std::string _nome;
         int _codigo;
         std::string _data_contrato;
@@ -12,5 +12,12 @@ class Funcionario
         std::string _telefone;
 
     public:
+        std::string get_nome();
+        int get_codigo();
+        std::string get_data_contrato();
+        double get_salario();
+        int get_avaliacao();
+        std::string get_telefone();
+
         double calcular_salario();
 };
