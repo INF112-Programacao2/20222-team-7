@@ -1,0 +1,62 @@
+{%extends 'base.html'%}
+{%load static%}
+  {%block header%}
+  <header id="header" class="fixed-top d-flex align-items-center ">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <div class="logo me-auto">
+        <h1><a href="{%url 'index'%}">CompFood</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="static/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <a href="{%url 'gerencia'%}" class="book-a-table-btn scrollto">Gerência</a>
+      <a href="{%url 'pedidos'%}" class="book-a-table-btn">Pedidos</a>
+      <a href="{%url 'cadastro_itens'%}" class="book-a-table-btn">Adicionar Itens</a>
+
+
+    </div>
+  </header><!-- End Header -->
+{%endblock%}
+{%block content%}
+  <main id="main">
+
+    <!-- ======= Breadcrumbs Section ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Gerenciamento de <span>pedidos</span></h2>
+          <ol>
+            <li><a href="/">{{rest}}</a></li>
+            <li>Pedidos</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs Section -->
+
+    <hr>
+    <section class="pedidos">
+        <div class="container">
+          <span>Pedidos</span>
+          <p>
+              <form action="{%url 'pedidos'%}" method="get" role="form" validate>
+                  <div class="form-group mt-3">
+                    <span><h3>Escolha o pedido a ser finalizado:</h3></span>
+                    <select name="itens" id="itens" class="form-control" multiple>
+                      {%for pedido in pedidos%}
+                        <option value={{pedido.id}}>{{pedido.descricao}} (Mesa N°: {{pedido.mesa}})</option>
+                      {%endfor%}
+                    </select>
+                    <div class="validate"></div>
+                  </div>
+                  
+                  <div class="text mt-3"><button type="submit">Finalizar pedido</button></div>
+                </form>
+          </p>
+        </div>
+    </section>
+
+  </main>
+  {%endblock%}
