@@ -4,6 +4,13 @@
 #include "Pedido.h"
 #include "Cliente.h"
 
+
+Cliente::Cliente(std::string nome, int codigo, int mesa){
+    _nome = nome;
+    _codigo = codigo;
+    _mesa = mesa;
+}
+
 std::string Cliente::get_nome()
 {
     return _nome;

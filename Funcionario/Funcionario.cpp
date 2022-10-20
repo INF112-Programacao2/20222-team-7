@@ -2,6 +2,20 @@
 #include <string>
 #include "Funcionario.h"
 
+Funcionario::Funcionario(std::string nome, int codigo, std::string contratadoem, double salario, double cargahoraria, int avaliacao, std::string telefone){
+    _nome = nome;
+    _codigo = codigo;
+    _data_contrato = contratadoem;
+    _salariofixo = salario;
+    _carga_horaria = cargahoraria;
+    _avaliacao = avaliacao;
+    _telefone = telefone;
+
+}
+
+Funcionario::~Funcionario(){        // destrutor
+}
+
 std::string Funcionario::get_nome()
 {
     return _nome;
@@ -19,7 +33,7 @@ std::string Funcionario::get_data_contrato()
 
 double Funcionario::get_salario()
 {
-    return _salario;
+    return _salariofixo;
 }
 
 int Funcionario::get_avaliacao()

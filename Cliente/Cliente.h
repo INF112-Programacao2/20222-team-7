@@ -10,6 +10,7 @@ class Cliente
         int _mesa;
 
     public:
+        Cliente(std::string nome, int codigo, int mesa);            // construtor
         std::string get_nome(); //Gets
         int get_codigo();
         int get_mesa();
