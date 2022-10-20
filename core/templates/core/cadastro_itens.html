@@ -1,58 +1,66 @@
 {%extends 'base.html'%}
 {%load static%}
-  {%block header%}
-  <header id="header" class="fixed-top d-flex align-items-center ">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+{%block header%}
 
-      <div class="logo me-auto">
-        <h1><a href="{%url 'index'%}">CompFood</a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html"><img src="static/img/logo.png" alt="" class="img-fluid"></a>-->
-      </div>
+<header id="header" class="fixed-top d-flex align-items-center " style="top:0px; height:110px">
+  <span style="color:white; margin-left: 5px;">
+    {%for message in messages%}
+    {{message}}
+    {%endfor%}
+  </span>
+  <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
-      <nav id="navbar" class="navbar order-last order-lg-0">
-        
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
-      <a href="{%url 'gerencia'%}" class="book-a-table-btn scrollto">Gerência</a>
-      <a href="{%url 'pedidos'%}" class="book-a-table-btn">Pedidos</a>
-      <a href="{%url 'cadastro_itens'%}" class="book-a-table-btn">Adicionar Itens</a>
-
+    <div class="logo me-auto">
+      <h1><a href="{%url 'cadastro_itens'%}">Cadastro de Itens</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html"><img src="static/img/logo.png" alt="" class="img-fluid"></a>-->
     </div>
-  </header><!-- End Header -->
+
+    <nav id="navbar" class="navbar order-last order-lg-0">
+
+      <i class="bi bi-list mobile-nav-toggle"></i>
+    </nav><!-- .navbar -->
+
+    <a href="{%url 'gerencia'%}" class="book-a-table-btn scrollto">Gerência</a>
+    <a href="{%url 'pedidos'%}" class="book-a-table-btn">Pedidos</a>
+    <a href="{%url 'cadastro_itens'%}" class="book-a-table-btn">Adicionar Itens</a>
+    <a href="{%url 'index'%}" class="book-a-table-btn"> Início</a>
+    <a href="{%url 'logout'%}" class="book-a-table-btn">Logout</a>
+
+
+  </div>
+</header><!-- End Header -->
 {%endblock%}
 {%block content%}
-  <main id="main">
+<main id="main">
 
-    <!-- ======= Breadcrumbs Section ======= -->
-    <section class="breadcrumbs">
-      <div class="container">
+  <!-- ======= Breadcrumbs Section ======= -->
+  <section class="breadcrumbs">
+    <div class="container">
 
-        <div class="d-flex justify-content-between align-items-center">
-          <h2>Gerenciamento de <span>pedidos</span></h2>
-          <ol>
-            <li><a href="/">{{rest}}</a></li>
-            <li>Pedidos</li>
-          </ol>
-        </div>
-
+      <div class="d-flex justify-content-between align-items-center">
+        <ol>
+          <li><a href="/">{{rest}}</a></li>
+          <li>Cadastro de Itens</li>
+        </ol>
       </div>
-    </section><!-- End Breadcrumbs Section -->
 
-    <hr>
-    <section class="pedidos">
-        <div class="container">
-          <span>Cadastro de Itens</span>
-          <p>
-            <form action="{%url 'cadastro_itens' %}" method="post" validate>
-                {%csrf_token%}
-                    {{item_form}}
-                <button type="submit" class="book-a-table-btn mt-3">Cadastrar Item</button>
-            </form>
-          </p>
-        </div>
-    </section>
+    </div>
+  </section><!-- End Breadcrumbs Section -->
 
-  </main>
-  {%endblock%}
+  <hr>
+  <section class="pedidos">
+    <div class="container">
+      <span>Cadastro de Itens</span>
+      <p>
+        <form action="{%url 'cadastro_itens' %}" method="post" validate>
+          {%csrf_token%}
+          {{item_form}}
+          <button type="submit" class="book-a-table-btn mt-3 btn">Cadastrar Item</button>
+        </form>
+      </p>
+    </div>
+  </section>
+
+</main>
+{%endblock%}
