@@ -3,8 +3,10 @@ from .models import *
 from .forms import *
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth.models import Permission
 
 @login_required(login_url="login")
 def index(request):
@@ -26,6 +28,7 @@ def index(request):
     
 
 @login_required(login_url="login")
+@permission_required('core.delete_pedido', raise_exception=True)
 def pedidos(request):
     if request.method=="GET":
         pedidos = Pedido.objects.all()
@@ -40,6 +43,7 @@ def pedidos(request):
 
 
 @login_required(login_url="login")
+@permission_required("is_staff", login_url="login")
 def gerencia(request):
     funcionarios = Funcionario.objects.all()
     if request.method=='GET':
@@ -53,6 +57,20 @@ def gerencia(request):
     if request.method == 'POST':
         funcionario_form = FuncionarioForm(request.POST)
         if funcionario_form.is_valid():
+            tipo_func = request.POST.get("cargo")
+            if tipo_func == "G2":#Garçom
+                username_fun = request.POST.get("nome").lower()
+                password_fun = request.POST.get("cpf").lower()
+                user = User.objects.create_user(username = username_fun, password=password_fun)
+                permission = Permission.objects.get(codename='delete_pedido')
+                print(list(Permission.objects.all().values("codename")))
+                user.user_permissions.add(permission)
+
+            if tipo_func == "G1":#Gerente
+                username_fun = request.POST.get("nome").lower()
+                password_fun = request.POST.get("cpf").lower()
+                user = User.objects.create_superuser(username = username_fun, password=password_fun)
+
             funcionario_form.save()
             messages.success(request, "Funcionário cadastrado com sucesso!")
 
@@ -64,6 +82,7 @@ def gerencia(request):
 
 
 @login_required(login_url="login")
+@permission_required("is_staff", login_url="login")
 def cadastrar_item(request):
     if request.method == 'GET':
         item_form = ItemForm()
@@ -81,6 +100,7 @@ def cadastrar_item(request):
 
 
 @login_required(login_url="login")
+@permission_required("is_staff", login_url="login")
 def avaliacao_funcionario(request):
     if request.method == "POST":
         avaliacao_funcionario = request.POST.get("nota_func")

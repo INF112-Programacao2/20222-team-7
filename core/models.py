@@ -3,6 +3,10 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Item(models.Model):
+    class Meta:
+        permissions = [
+            ("pode_cadastrar_item", "Pode cadastrar um novo item")
+        ]
     nome = models.CharField(verbose_name= "Nome do Item", max_length=256)
     preco = models.FloatField(verbose_name="Valor")
     tempo_preparo_minutos = models.FloatField(verbose_name="Tempo de preparo(minutos)")
@@ -24,6 +28,10 @@ class Restaurante(models.Model):
         return f"{self.nome}"
 
 class Funcionario(models.Model):
+    class Meta:
+        permissions=[
+            ("pode_gerenciar_funcionarios", "Pode gerenciar funcionários")
+        ]
     CARGO_CHOICES = (
         ("G1", "Gerente"),
         ("G2", "Garçom"),
@@ -42,6 +50,10 @@ class Funcionario(models.Model):
         return f"{self.nome} ({self.cpf})"
 
 class Pedido(models.Model):
+    class Meta:
+        permissions = [
+            ("pode_modificar_pedidos","Pode modificar pedidos")
+        ]
     PAGAMENTO_CHOICES = (
         (0,"Cartão de crédito"),
         (1,"PIX"),
