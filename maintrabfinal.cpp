@@ -6,6 +6,7 @@
 #include "Item.h"
 #include "ListaEspera.h"
 #include "Pedido.h"
+#include "Garcom.h"
 
 int main(){
     Item* itemum = new Item("Filé de Frango", "Acompanha: arroz,feijão,farofa,alface,tomate e cenoura", 17.9, 30.0, 1);
