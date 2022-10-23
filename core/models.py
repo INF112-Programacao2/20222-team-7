@@ -37,7 +37,7 @@ class Funcionario(models.Model):
         ("G2", "Garçom"),
     )
     nome = models.CharField(max_length=256, null=True, blank=True, verbose_name="Nome do Funcionário")
-    cpf = models.CharField(max_length=25, null=True, blank=True, verbose_name="CPF do Funcionário")
+    cpf = models.CharField(max_length=25, null=True, blank=True, verbose_name="CPF do Funcionário", unique=True)
     cargo = models.CharField(max_length=3, choices=CARGO_CHOICES, blank=False, null=False, verbose_name="Cargo")
     data_contrato = models.DateField(verbose_name="Data de contrato")
     salario = models.FloatField(verbose_name="Salário Inicial")

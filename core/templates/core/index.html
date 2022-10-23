@@ -31,11 +31,19 @@
       <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar -->
 
+
     <a href="#book-a-table" class="book-a-table-btn scrollto">Faça um pedido</a>
+    {%if user.is_superuser%}
     <a href="{%url 'gerencia' %}" class="book-a-table-btn ">Gerência</a>
-    <a href="{%url 'pedidos' %}" class="book-a-table-btn">Pedidos</a>
     <a href="{%url 'cadastro_itens'%}" class="book-a-table-btn">Adicionar Itens</a>
-    <a href="{%url 'logout'%}" class="book-a-table-btn">Logout</a>
+    {%endif%}
+    {%if perms.core.delete_pedido%}
+    <a href="{%url 'pedidos' %}" class="book-a-table-btn">Pedidos</a>
+    {%endif%}
+    <a href="{%url 'logout'%}" class="book-a-table-btn"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+      <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+    </svg></a>
 
 
 
@@ -127,29 +135,18 @@
         <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch">
 
           <div class="content">
-            <h3>Eum ipsam laborum deleniti <strong>velit pariatur architecto aut nihil</strong></h3>
+            <h3>Apenas alguns motivos<strong> para frequentar nosso espaço</strong></h3>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Duis aute irure dolor in reprehenderit
+              Comer bem nunca foi tão fácil! Agora com o CompFood na sua região você terá acesso a pratos deliciosos e um atendimento de deixar até a rainha da Inglaterra (ou não) com inveja!
             </p>
             <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore
-              magna aliqua.
+              Venha fazer uma visita e aproveitar essa maravilha com a gente!
             </p>
             <ul>
-              <li><i class="bx bx-check-double"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-              <li><i class="bx bx-check-double"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-              <li><i class="bx bx-check-double"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla
-                pariatur.</li>
+              <li><i class="bx bx-check-double"></i> Que tal reunir os amigos em um ambiente confortável com a melhor comida da região?  </li>
+              <li><i class="bx bx-check-double"></i>Venha conhecer o nosso cardápio e tenha uma noite inesquecível.</li>
+              <li><i class="bx bx-check-double"></i> Tenho certeza que vai querer voltar. Faça um pedido agora mesmo.</li>
             </ul>
-            <p>
-              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-              voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-              culpa qui officia deserunt mollit anim id est laborum
-            </p>
           </div>
 
         </div>
@@ -210,10 +207,8 @@
       <div class="row">
         <div class="col-lg-12 d-flex justify-content-center">
           <ul id="menu-flters">
-            <li data-filter="*" class="filter-active">Todos</li>
-            <li data-filter=".filter-starters">Entradas</li>
-            <li data-filter=".filter-salads">Saladas</li>
-            <li data-filter=".filter-specialty">Especialidades</li>
+            <li data-filter="*" class="filter-active">Cardápio</li>
+            <li data-filter=".filter-salads">Esconder</li>
           </ul>
         </div>
       </div>
@@ -237,28 +232,27 @@
     <div class="container">
 
       <div class="section-title">
-        <h2>Check our <span>Specials</span></h2>
-        <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae
-          autem.</p>
+        <h2>Confira nossos <span>Especiais</span></h2>
+        <p>Os melhores, garantimos.</p>
       </div>
 
       <div class="row">
         <div class="col-lg-3">
           <ul class="nav nav-tabs flex-column">
             <li class="nav-item">
-              <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">Modi sit est</a>
+              <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">Arroz de rico</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Unde praesentium sed</a>
+              <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Só laranja?</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Pariatur explicabo vel</a>
+              <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Macarrão em sopa</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="tab" href="#tab-4">Nostrum qui quasi</a>
+              <a class="nav-link" data-bs-toggle="tab" href="#tab-4">Nhoque de Natal</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="tab" href="#tab-5">Iusto ut expedita aut</a>
+              <a class="nav-link" data-bs-toggle="tab" href="#tab-5">Fruta no prato</a>
             </li>
           </ul>
         </div>
@@ -267,12 +261,9 @@
             <div class="tab-pane active show" id="tab-1">
               <div class="row">
                 <div class="col-lg-8 details order-2 order-lg-1">
-                  <h3>Architecto ut aperiam autem id</h3>
-                  <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a
-                    videna mareta paulona marka</p>
-                  <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum eos ipsum ipsa
-                    odit magni. Incidunt hic ut molestiae aut qui. Est repellat minima eveniet eius et quis magni nihil.
-                    Consequatur dolorem quaerat quos qui similique accusamus nostrum rem vero</p>
+                  <h3>Arroz de rico</h3>
+                  <p class="fst-italic">Feito com arroz, água e frango de rico</p>
+                  
                 </div>
                 <div class="col-lg-4 text-center order-1 order-lg-2">
                   <img src="static/img/specials-1.jpg" alt="" class="img-fluid">
@@ -282,12 +273,9 @@
             <div class="tab-pane" id="tab-2">
               <div class="row">
                 <div class="col-lg-8 details order-2 order-lg-1">
-                  <h3>Et blanditiis nemo veritatis excepturi</h3>
-                  <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a
-                    videna mareta paulona marka</p>
-                  <p>Ea ipsum voluptatem consequatur quis est. Illum error ullam omnis quia et reiciendis sunt sunt est.
-                    Non aliquid repellendus itaque accusamus eius et velit ipsa voluptates. Optio nesciunt eaque beatae
-                    accusamus lerode pakto madirna desera vafle de nideran pal</p>
+                  <h3>Só laranja?</h3>
+                  <p class="fst-italic">Só tem laranja ali</p>
+                  
                 </div>
                 <div class="col-lg-4 text-center order-1 order-lg-2">
                   <img src="static/img/specials-2.jpg" alt="" class="img-fluid">
@@ -297,12 +285,9 @@
             <div class="tab-pane" id="tab-3">
               <div class="row">
                 <div class="col-lg-8 details order-2 order-lg-1">
-                  <h3>Impedit facilis occaecati odio neque aperiam sit</h3>
-                  <p class="fst-italic">Eos voluptatibus quo. Odio similique illum id quidem non enim fuga. Qui natus
-                    non sunt dicta dolor et. In asperiores velit quaerat perferendis aut</p>
-                  <p>Iure officiis odit rerum. Harum sequi eum illum corrupti culpa veritatis quisquam. Neque
-                    necessitatibus illo rerum eum ut. Commodi ipsam minima molestiae sed laboriosam a iste odio. Earum
-                    odit nesciunt fugiat sit ullam. Soluta et harum voluptatem optio quae</p>
+                  <h3>Macarrão em sopa</h3>
+                  <p class="fst-italic">Dá pra fazer em casa, mas o nosso é melhor</p>
+                  
                 </div>
                 <div class="col-lg-4 text-center order-1 order-lg-2">
                   <img src="static/img/specials-3.jpg" alt="" class="img-fluid">
@@ -312,12 +297,9 @@
             <div class="tab-pane" id="tab-4">
               <div class="row">
                 <div class="col-lg-8 details order-2 order-lg-1">
-                  <h3>Fuga dolores inventore laboriosam ut est accusamus laboriosam dolore</h3>
-                  <p class="fst-italic">Totam aperiam accusamus. Repellat consequuntur iure voluptas iure porro quis
-                    delectus</p>
-                  <p>Eaque consequuntur consequuntur libero expedita in voluptas. Nostrum ipsam necessitatibus aliquam
-                    fugiat debitis quis velit. Eum ex maxime error in consequatur corporis atque. Eligendi asperiores
-                    sed qui veritatis aperiam quia a laborum inventore</p>
+                  <h3>Nhoque de Natal</h3>
+                  <p class="fst-italic">Pra comer em dezembro</p>
+                  
                 </div>
                 <div class="col-lg-4 text-center order-1 order-lg-2">
                   <img src="static/img/specials-4.jpg" alt="" class="img-fluid">
@@ -327,11 +309,9 @@
             <div class="tab-pane" id="tab-5">
               <div class="row">
                 <div class="col-lg-8 details order-2 order-lg-1">
-                  <h3>Est eveniet ipsam sindera pad rone matrelat sando reda</h3>
-                  <p class="fst-italic">Omnis blanditiis saepe eos autem qui sunt debitis porro quia.</p>
-                  <p>Exercitationem nostrum omnis. Ut reiciendis repudiandae minus. Omnis recusandae ut non quam ut quod
-                    eius qui. Ipsum quia odit vero atque qui quibusdam amet. Occaecati sed est sint aut vitae molestiae
-                    voluptate vel</p>
+                  <h3>Fruta no prato</h3>
+                  <p class="fst-italic">Aqui só tem frutinha.</p>
+                  
                 </div>
                 <div class="col-lg-4 text-center order-1 order-lg-2">
                   <img src="static/img/specials-5.jpg" alt="" class="img-fluid">
@@ -548,25 +528,25 @@
           <div class="col-lg-3 col-md-6 info">
             <i class="bi bi-geo-alt"></i>
             <h4>Localização:</h4>
-            <p>{{localizacao}}</p>
+            <p>{{rest.localizacao}}</p>
           </div>
 
           <div class="col-lg-3 col-md-6 info mt-4 mt-lg-0">
             <i class="bi bi-clock"></i>
             <h4>Aberto:</h4>
-            <p>Segunda a sexta:<br>{{time}}</p>
+            <p>Segunda a sexta:<br>{{rest.horario_funcionamento}}</p>
           </div>
 
           <div class="col-lg-3 col-md-6 info mt-4 mt-lg-0">
             <i class="bi bi-envelope"></i>
-            <h4>Email:</h4>
-            <p>info@example.com<br>contact@example.com</p>
+            <h4>Proprietário:</h4>
+            <p>{{rest.proprietario}}</p>
           </div>
 
           <div class="col-lg-3 col-md-6 info mt-4 mt-lg-0">
             <i class="bi bi-phone"></i>
             <h4>Ligue:</h4>
-            <p>{{telefone}}<br></p>
+            <p>{{rest.telefone}}<br></p>
           </div>
         </div>
       </div>

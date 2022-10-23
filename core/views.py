@@ -7,24 +7,26 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Permission
+from django.contrib.auth.forms import UserCreationForm
 
 @login_required(login_url="login")
 def index(request):
     itens = Item.objects.all()
+    rest = Restaurante.objects.first()
     if request.method =='GET':
-        pedido_form = PedidoForm(initial = {"cliente":request.user})
+        pedido_form = PedidoForm(initial = {"cliente":request.user}, user=request.user)
 
     if request.method == 'POST':
-        pedido_form = PedidoForm(request.POST)
+        pedido_form = PedidoForm(request.user, request.POST)
         if pedido_form.is_valid():
             pedido_form.save()
-            messages.success(request, "Pedido salvo com sucesso!")
-            return HttpResponseRedirect(reverse('pedidos'))
+            messages.success(request, "Pedido realizado com sucesso. Já será preparado!")
+            return HttpResponseRedirect(reverse('index'))
         else:
             messages.warning(request, "Algo errado com o formulário de pedidos")
-            return render(request=request, template_name='core/index.html', context={"pedido_form":pedido_form, "itens":itens})
+            return render(request=request, template_name='core/index.html', context={"pedido_form":pedido_form, "itens":itens, "rest":rest})
     
-    return render(request=request, template_name='core/index.html', context={"pedido_form":pedido_form, "itens":itens})
+    return render(request=request, template_name='core/index.html', context={"pedido_form":pedido_form, "itens":itens, "rest":rest})
     
 
 @login_required(login_url="login")
@@ -50,7 +52,10 @@ def gerencia(request):
         funcionarios_demissao = request.GET.getlist("func")
         if funcionarios_demissao:
             funcionarios_demissao = [int(i) for i in funcionarios_demissao]
+            funcionarios_demissao_qs = Funcionario.objects.filter(id__in=funcionarios_demissao)
+            User.objects.filter(username__in=funcionarios_demissao_qs.values("cpf")).delete()
             Funcionario.objects.filter(id__in=funcionarios_demissao).delete()
+
             messages.success(request, "Funcionário desligado com sucesso!")
 
         funcionario_form = FuncionarioForm()
@@ -59,16 +64,15 @@ def gerencia(request):
         if funcionario_form.is_valid():
             tipo_func = request.POST.get("cargo")
             if tipo_func == "G2":#Garçom
-                username_fun = request.POST.get("nome").lower()
-                password_fun = request.POST.get("cpf").lower()
+                username_fun = request.POST.get("cpf").lower()
+                password_fun = request.POST.get("nome").lower()
                 user = User.objects.create_user(username = username_fun, password=password_fun)
                 permission = Permission.objects.get(codename='delete_pedido')
-                print(list(Permission.objects.all().values("codename")))
                 user.user_permissions.add(permission)
 
             if tipo_func == "G1":#Gerente
-                username_fun = request.POST.get("nome").lower()
-                password_fun = request.POST.get("cpf").lower()
+                username_fun = request.POST.get("cpf").lower()
+                password_fun = request.POST.get("nome").lower()
                 user = User.objects.create_superuser(username = username_fun, password=password_fun)
 
             funcionario_form.save()
@@ -136,3 +140,16 @@ def logout_usr(request):
     logout(request)
 
     return HttpResponseRedirect(reverse('login'))
+
+
+def criar_conta(request):
+    if request.method == "GET":
+        form_registro = RegistroForm()
+    if request.method == "POST":
+        form_registro = RegistroForm(request.POST)
+        if form_registro.is_valid():
+            form_registro.save()
+            messages.success(request, "Cliente cadastrado com sucesso!")
+            return HttpResponseRedirect(reverse("login"))
+
+    return render(request, "registration/criar_conta.html", context={"form_registro":form_registro})
