@@ -4,7 +4,7 @@
 #include "Gerente.h"
 #include "Funcionario.h"
 
-void Dono::definir_salario(Funcionario &aux)
+void Dono::definir_salario(Funcionario aux)
 {
 //A desenvolver...
 }
