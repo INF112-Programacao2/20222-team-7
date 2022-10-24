@@ -46,4 +46,5 @@ std::string Pedido::get_descricao(){
 
 double Pedido::get_tempo_espera(){
     return _qtd_pedidos*30;
+
 }

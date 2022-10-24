@@ -35,3 +35,18 @@ void Cliente::avaliar_restaurante(Restaurante rest, double avaliacao)
 {
     rest.set_avaliacao(avaliacao);
 }
+
+void Cliente::fazer_pedido()
+{
+//A desenvolver...
+}
+
+int Cliente::soma()
+{
+//A desenvolver...
+}
+
+int Cliente::avaliar_restaurante()
+{
+//A desenvolver...
+}

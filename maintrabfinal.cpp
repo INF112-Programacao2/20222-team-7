@@ -26,9 +26,8 @@ void cabecalho_dono(){
     //Tudo que dono pode fazer;
 }
 
-
-
 int main(){
+
 
     return 0;
 }

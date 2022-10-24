@@ -1,6 +1,6 @@
 #include "Funcionario.h"
 
-class Gerente
+class Gerente : public Funcionario
 {
     protected:
         int avaliar_funcionario();
