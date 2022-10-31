@@ -6,11 +6,10 @@ class Item
         std::string _nome;                  //titulo 
         std::string _descricao;             // subtitulo (acompanhamentos)
         double _preco;
-        double _tempo_preparo;
         int _codigo;
 
     public:
-        Item(std::string nome, std::string subtitulo, double preco, double tempo, int codigo);         //construtor
+        Item(std::string nome, std::string subtitulo, double preco, int codigo);         //construtor
         ~Item();
         void ImprimeItem();
         std::string get_nome();
