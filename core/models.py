@@ -68,3 +68,6 @@ class Pedido(models.Model):
 
     def __str__(self):
         return f"{self.cliente}"
+
+    def get_forma_pagamento(self):
+        return self.PAGAMENTO_CHOICES[self.forma_pagamento][1]

@@ -57,9 +57,8 @@
 
   <section class="pedidos">
     <div class="container">
-      <span>Pedidos</span>
       <p>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        <button  type="button" class="btn book-a-table-btn-square " data-toggle="modal" data-target="#exampleModal">
           Acesso aos pedidos
         </button>
         <form action="{%url 'pedidos'%}" method="get" role="form" validate>
@@ -78,7 +77,7 @@
             <div class="validate"></div>
           </div>
 
-          <div class="text mt-3"><button class="btn btn-secondary" type="submit">Finalizar pedido</button></div>
+          <div class="text mt-3"><button class="btn book-a-table-btn-square " type="submit">Finalizar pedido</button></div>
         </form>
       </p>
     </div>
@@ -92,7 +91,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="exampleModalLabel">Acesso aos pedidos</h4>
+        <h2 class="modal-title" id="exampleModalLabel">Acesso aos pedidos</h2>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -101,14 +100,14 @@
         <p>Pedidos</p>
         <table>
           {%for pedido in pedidos%}
-          <button style=" margin: 3px;"type="button" class="btn btn-primary sm" data-toggle="modal" data-target="#exampleModal{{pedido.id}}">
+          <button style=" margin: 3px;"type="button" class="btn book-a-table-btn-square sm" data-toggle="modal" data-target="#exampleModal{{pedido.id}}">
             Abrir pedido {{pedido.id}}
           </button>
           {%endfor%}
         </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok!</button>
+        <button type="button" class="btn book-a-table-btn" data-dismiss="modal">Ok!</button>
       </div>
     </div>
   </div>
@@ -122,7 +121,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="exampleModalLabel">Pedido número {{pedido.id}}</h4>
+        <h2 class="modal-title" id="exampleModalLabel">Pedido número {{pedido.id}}</h2>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -131,6 +130,7 @@
         <p>Descrição: {{pedido.descricao}}</p>
         <p>Cliente: {{pedido.cliente.username}}</p>
         <p>Mesa: {{pedido.mesa}}</p>
+        <p>Método de pagamento: {{pedido.get_forma_pagamento}}</p>
         <p>Items do pedido</p>
 
         <table>
@@ -141,7 +141,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok!</button>
+        <button type="button" class="btn book-a-table-btn" data-dismiss="modal">Ok!</button>
       </div>
     </div>
   </div>

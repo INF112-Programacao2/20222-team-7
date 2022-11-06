@@ -154,6 +154,17 @@ h6 {
   white-space: nowrap;
 }
 
+.book-a-table-btn-square {
+  background: #ffb03b;
+  color: #fff;
+  padding: 10px 25px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  transition: 0.3s;
+  white-space: nowrap;
+}
+
 .book-a-table-btn:hover {
   background: #ffa012;
   color: #fff;
