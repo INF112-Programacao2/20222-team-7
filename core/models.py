@@ -21,7 +21,7 @@ class Restaurante(models.Model):
     nome = models.CharField(max_length=200, verbose_name="Nome do Restaurante")
     qtd_funcionarios = models.IntegerField(verbose_name="Quantidade de Funcionários")
     horario_funcionamento = models.CharField(max_length=100, verbose_name="Horário de Funcionamento")
-    cardapio = models.ForeignKey(Item, on_delete=models.CASCADE, verbose_name="Cardápio")
+    cardapio = models.ManyToManyField(Item, verbose_name="Cardápio")
     telefone = models.CharField(max_length=25, verbose_name="Telefone do Restaurante")
 
     def __str__(self):
