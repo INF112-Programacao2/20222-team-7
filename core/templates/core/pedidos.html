@@ -23,10 +23,13 @@
     {%if perms.core.delete_pedido%}
     <a href="{%url 'pedidos' %}" class="book-a-table-btn">Pedidos</a>
     {%endif%}
-    <a href="{%url 'logout'%}" class="book-a-table-btn"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
-      <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
-      <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
-    </svg></a>
+    <a href="{%url 'logout'%}" class="book-a-table-btn"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+        fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+          d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
+        <path fill-rule="evenodd"
+          d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
+      </svg></a>
 
 
 
@@ -51,18 +54,25 @@
   </section><!-- End Breadcrumbs Section -->
 
   <hr>
+
   <section class="pedidos">
     <div class="container">
       <span>Pedidos</span>
       <p>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+          Acesso aos pedidos
+        </button>
         <form action="{%url 'pedidos'%}" method="get" role="form" validate>
           <div class="form-group mt-3">
             <span>
               <h3>Escolha o pedido a ser finalizado:</h3>
             </span>
+
             <select name="itens" id="itens" class="form-control" multiple required>
               {%for pedido in pedidos%}
-              <option value={{pedido.id}}>{{pedido.descricao}} (Mesa N°: {{pedido.mesa}})</option>
+
+              <option value={{pedido.id}}>{{pedido.descricao}} (Mesa N°:
+                {{pedido.mesa}})</option>
               {%endfor%}
             </select>
             <div class="validate"></div>
@@ -75,4 +85,66 @@
   </section>
 
 </main>
+
+<!-- Modal principal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Acesso aos pedidos</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Pedidos</p>
+        <table>
+          {%for pedido in pedidos%}
+          <button style=" margin: 3px;"type="button" class="btn btn-primary sm" data-toggle="modal" data-target="#exampleModal{{pedido.id}}">
+            Abrir pedido {{pedido.id}}
+          </button>
+          {%endfor%}
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok!</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{%for pedido in pedidos%}
+<!-- Modal -->
+<div class="modal fade" id="exampleModal{{pedido.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Pedido número {{pedido.id}}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Descrição: {{pedido.descricao}}</p>
+        <p>Cliente: {{pedido.cliente.username}}</p>
+        <p>Mesa: {{pedido.mesa}}</p>
+        <p>Items do pedido</p>
+
+        <table>
+          {%for item in pedido.lista_itens.values%}
+          <li>{{item.nome}}</li>
+          {%endfor%}
+        </table>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok!</button>
+      </div>
+    </div>
+  </div>
+</div>
+{%endfor%}
 {%endblock%}
