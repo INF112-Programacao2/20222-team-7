@@ -1,3 +1,6 @@
+#ifndef RESTAURANTE_H
+#define RESTAURANTE_H
+
 #include <string>
 #include "Dono.h"
 #include "Funcionario.h"
@@ -32,3 +35,5 @@ class Restaurante
         double get_avaliacaomedia();
         
 };
+
+#endif
