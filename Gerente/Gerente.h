@@ -1,3 +1,6 @@
+#ifndef GERENTE_H
+#define GERENTE_H
+
 #include "Funcionario.h"
 
 class Gerente : public Funcionario
@@ -8,5 +11,11 @@ class Gerente : public Funcionario
         void contratar_funcionario();
 
     public:
+        Gerente(std::string nome, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone);
+        ~Gerente();
+        void calcular_salariofinal() override;
+          
 
 };
+
+#endif
