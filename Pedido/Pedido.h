@@ -3,6 +3,8 @@
 
 #include "Cliente.h"
 #include "Item.h"
+#include "Garcom.h"
+
 #include <string>
 #include <algorithm>
 
@@ -25,6 +27,7 @@ class Pedido
         std::string get_forma_pagamento();              //Nao sei se esse get sera util...
         std::string get_descricao();
         int get_codigo();
+        void calculargorjeta();
 };
 
 #endif
