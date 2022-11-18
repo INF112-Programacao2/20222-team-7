@@ -33,3 +33,7 @@ int Item::get_codigo()
 {
     return this->_codigo;
 }
+
+void passargorjeta(){
+    _gorjetatotaldomes += 0.1 * _preco;
+}
