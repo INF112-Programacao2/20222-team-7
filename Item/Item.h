@@ -2,7 +2,7 @@
 #define ITEM_H
 
 #include <string>
-#include "Garcom.h"
+
 
 class Item
 {
@@ -20,7 +20,7 @@ class Item
         double get_preco();
         double get_tempo_preparo();
         int get_codigo();
-        void passargorjeta();            //10% do preco
+
 };
 
 #endif
