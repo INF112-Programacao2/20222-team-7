@@ -4,6 +4,7 @@
 #include "Cliente.h"
 #include "Item.h"
 #include "Pedido.h"
+#include "Garcom.h"
 
 Pedido::_qtd_pedidos=0;
 
@@ -22,6 +23,10 @@ Pedido::Pedido(Cliente cliente, vector <Item> lista_itens, int mesa, std::string
 double Pedido::get_preco()
 {
     return this->_preco;
+}
+
+void Pedido::calculargorjeta(){
+    _gorjetatotaldomes += 0.1 * _preco;
 }
     
 int Pedido::get_mesa()
