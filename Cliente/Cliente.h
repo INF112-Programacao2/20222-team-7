@@ -1,3 +1,6 @@
+#ifndef CLIENTE_H
+#define CLIENTE_H
+
 #include "Restaurante.h"
 #include "Pedido.h"
 #include <string>
@@ -18,3 +21,5 @@ class Cliente
         void avaliar_restaurante(Restaurante rest, double avaliacao);
          
 };
+
+#endif
