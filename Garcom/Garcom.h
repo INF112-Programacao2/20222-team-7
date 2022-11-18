@@ -1,16 +1,18 @@
+#ifndef GARCOM_H
+#define GARCOM_H
+
 #include "Funcionario.h"
 
-class Garcom : public Funcionario 
-{
-    protected:
+class Garcom : public Funcionario {
+    private:
+        double _gorjetatotaldomes;
         void verPedidos();
         void finalizarPedidos();
     public:
-          
-<<<<<<< HEAD
-};
-=======
-};
+        Garcom(std::string nome, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone, double gorjetatotaldomes);
+        void calcular_salariofinal() override;
 
 
->>>>>>> 9d5f263f12945717fdfa0b6babac866bb4308fcf
+};
+
+#endif
