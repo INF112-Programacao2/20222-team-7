@@ -1,3 +1,6 @@
+#ifndef PEDIDO_H
+#define PEDIDO_H
+
 #include "Cliente.h"
 #include "Item.h"
 #include <string>
@@ -23,3 +26,5 @@ class Pedido
         std::string get_descricao();
         int get_codigo();
 };
+
+#endif
