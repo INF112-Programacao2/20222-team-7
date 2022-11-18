@@ -1,3 +1,6 @@
+#ifndef FUNCIO_H
+#define FUNCIO_H
+
 #include <string>
 
 class Funcionario
@@ -6,20 +9,25 @@ class Funcionario
         std::string _nome;
         int _codigo;
         std::string _data_contrato;
-        double _salariofixo;
-        double _carga_horaria;
+        double _salariominimo;          //salario minimo = 1200.00
+        double _salariofinal;
+        int _carga_horaria;
         int _avaliacao;
         std::string _telefone;
+        int _horaextra;
 
     public:
-        Funcionario(std::string nome, int codigo, std::string contratadoem, double salario, double cargahoraria, int avaliacao, std::string telefone);
+        Funcionario(std::string nome, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone);
         ~Funcionario();
         std::string get_nome();
         int get_codigo();
         std::string get_data_contrato();
-        double get_salario();
+        double get_salariofinal();
         int get_avaliacao();
         std::string get_telefone();
+        int get_horaextra();
 
-        double calcular_salario();
+        virtual void calcular_salariofinal();
 };
+
+#endif
