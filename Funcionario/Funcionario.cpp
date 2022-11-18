@@ -2,75 +2,56 @@
 #include <string>
 #include "Funcionario.h"
 
-Funcionario::Funcionario(std::string nome, int codigo, std::string contratadoem, double salario, double cargahoraria, int avaliacao, std::string telefone){
+Funcionario::Funcionario(std::string nome, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone){
     _nome = nome;
     _codigo = codigo;
     _data_contrato = contratadoem;
-    _salariofixo = salario;
     _carga_horaria = cargahoraria;
     _avaliacao = avaliacao;
     _telefone = telefone;
+    _salariominimo = 1200.00
+    _horaextra = 0;
 
 }
 
 Funcionario::~Funcionario(){        // destrutor
 }
 
-std::string Funcionario::get_nome()
-{
-<<<<<<< HEAD
+std::string Funcionario::get_nome(){
+
     return this->_nome;
-=======
-    return _nome;
->>>>>>> 9d5f263f12945717fdfa0b6babac866bb4308fcf
 }
     
-int Funcionario::get_codigo()
-{
-<<<<<<< HEAD
+int Funcionario::get_codigo(){
     return this->_codigo;
-=======
-    return _codigo;
->>>>>>> 9d5f263f12945717fdfa0b6babac866bb4308fcf
 }
 
-std::string Funcionario::get_data_contrato()
-{
-<<<<<<< HEAD
+std::string Funcionario::get_data_contrato(){
     return this->_data_contrato;
-=======
-    return _data_contrato;
->>>>>>> 9d5f263f12945717fdfa0b6babac866bb4308fcf
 }
 
-double Funcionario::get_salario()
-{
-<<<<<<< HEAD
-    return this->_salariofixo;
-=======
-    return _salariofixo;
->>>>>>> 9d5f263f12945717fdfa0b6babac866bb4308fcf
+void Funcionario::calcular_salariofinal(){
+    if(_carga_horaria <= 8){
+        _salariofinal = _salariominimo;
+    } else{
+        _horaextra = 8 - _carga_horaria;
+        _salariofinal = _salariominimo + 5.5 * (_horaextra);            //5.5 o valor da hora extra do salario minimo
+    }
+
 }
 
-int Funcionario::get_avaliacao()
-{
-<<<<<<< HEAD
+double Funcionario::get_salariofinal(){
+    return this->_salariofinal;
+}
+
+int Funcionario::get_horaextra(){
+    return this->_horaextra;
+}
+
+int Funcionario::get_avaliacao(){
     return this->_avaliacao;
-=======
-    return _avaliacao;
->>>>>>> 9d5f263f12945717fdfa0b6babac866bb4308fcf
 }
 
-std::string Funcionario::get_telefone()
-{
-<<<<<<< HEAD
+std::string Funcionario::get_telefone(){
     return this->_telefone;
-=======
-    return _telefone;
->>>>>>> 9d5f263f12945717fdfa0b6babac866bb4308fcf
-}
-
-double Funcionario::calcular_salario()
-{
-//A desenvolver...
 }
