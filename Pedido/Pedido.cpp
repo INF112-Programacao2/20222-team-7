@@ -6,9 +6,9 @@
 #include "Pedido.h"
 #include "Garcom.h"
 
-Pedido::_qtd_pedidos=0;
+int Pedido::_qtd_pedidos=0;
 
-Pedido::Pedido(Cliente cliente, vector <Item> lista_itens, int mesa, std::string forma_pag, std::string descricao){
+Pedido::Pedido(Cliente cliente, std::vector <Item> lista_itens, int mesa, std::string forma_pag, std::string descricao){
     _qtd_pedidos++;
     this->_cliente = cliente;
     this->_lista_itens = lista_itens;
@@ -17,7 +17,7 @@ Pedido::Pedido(Cliente cliente, vector <Item> lista_itens, int mesa, std::string
     this->_descricao = descricao;
     this->_preco = 0;
     for(int i=0; i<lista_itens.size(); i++)
-        this->preco+=lista_itens[i].get_preco();
+        this->_preco+=lista_itens[i].get_preco();
 
 }
 double Pedido::get_preco()
@@ -25,22 +25,16 @@ double Pedido::get_preco()
     return this->_preco;
 }
 
-void Pedido::calculargorjeta(){
-    _gorjetatotaldomes += 0.1 * _preco;
-}
     
-int Pedido::get_mesa()
-{
+int Pedido::get_mesa(){
     return this->_mesa;
 }
 
-std::string Pedido::get_forma_pagamento()
-{
+std::string Pedido::get_forma_pagamento(){
     return this->_forma_pagamento;
 }
 
-int Pedido::get_codigo()
-{
+int Pedido::get_codigo(){
     return this->_codigo;
 }
 

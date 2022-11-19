@@ -17,13 +17,14 @@ class Funcionario
         int _horaextra;
 
     public:
-        Funcionario(std::string nome, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone);
+        Funcionario(std::string nome, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone, double salario);
         ~Funcionario();
         std::string get_nome();
         int get_codigo();
         std::string get_data_contrato();
         double get_salariofinal();
         int get_avaliacao();
+        void set_avaliacao(double avaliacao);
         std::string get_telefone();
         int get_horaextra();
 

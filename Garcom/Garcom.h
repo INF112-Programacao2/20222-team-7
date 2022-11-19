@@ -5,12 +5,11 @@
 
 class Garcom : public Funcionario {
     private:
-        double _gorjetatotaldomes;
         void verPedidos();
         void finalizarPedidos();
     public:
-        Garcom(std::string nome, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone, double gorjetatotaldomes);
-        void calcular_salariofinal() override;
+        Garcom(std::string nome, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone, double salario);
+        virtual void calcular_salariofinal() override;
 
 
 };

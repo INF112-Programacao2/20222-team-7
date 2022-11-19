@@ -6,6 +6,8 @@
 #include "Funcionario.h"
 #include "Item.h"
 #include <algorithm>
+#include <vector>
+#include <iostream>
 
 class Restaurante
 {
@@ -14,15 +16,16 @@ class Restaurante
         std::string _localizacao;
         std::string _nome;
         int _num_funcionarios;
-        vector <Funcionario> _lista_funcionarios;
+        std::vector <Funcionario> _lista_funcionarios;
         std::string _horario_funcionamento;
-        vector <Item> _cardapio; 
+        std::vector <Item> _cardapio; 
         std::string _telefone;
         double _soma_avaliacao;
         int _n_avaliacao;
+        double _avaliacaocommedia;
 
     public:
-        Restaurante(Dono _dono, std::string _localizacao, std::string _nome, int _num_funcionarios, std::string _horario_funcionamento, vector <Item> _cardapio, std::string _telefone);
+        Restaurante(Dono _dono, std::string _localizacao, std::string _nome, int _num_funcionarios, std::string _horario_funcionamento, std::vector <Item> _cardapio, std::string _telefone);
         
         double get_avaliacaomedia();
         Dono get_dono();                //Esse get talvez possa ser apagado

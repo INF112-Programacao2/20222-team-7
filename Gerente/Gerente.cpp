@@ -1,33 +1,29 @@
 #include <iostream>
 #include "Gerente.h"
 #include "Funcionario.h"
+#include <stdexcept>
+#include "Garcom.h"
 
-
-Gerente::Gerente(std::string nome, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone){
-    _nome = nome;
-    _codigo = codigo;
-    _data_contrato = contratadoem;
-    _carga_horaria = cargahoraria;
-    _avaliacao = avaliacao;
-    _telefone = telefone;
-    _salariominimo = 1600.00
-    _horaextra = 0;
-
-}
+Gerente::Gerente(std::string nome, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone, double salario):
+    Funcionario(nome,codigo,contratadoem,cargahoraria,avaliacao,telefone, salario){};
 
 Gerente::~Gerente(){
 
 }
-int Gerente::avaliar_funcionario()
-{
-//A desenvolver...
-}
-void Garcom::calcular_salariofinal(){
-    if(_carga_horaria <= 8){
-        _salariofinal = _salariominimo;
+int Gerente::avaliar_garcom(Garcom &garcom, double avaliacao){
+    if(avaliacao > 10 || avaliacao < 0){
+        throw std::invalid_argument("Avaliacao deve ser um valor entrew 0 e 10");
     } else{
-        _horaextra = 8 - _carga_horaria;
-        _salariofinal = _salariominimo + 7.5 * (_horaextra);            //7.5 o valor da hora extra do salario minimo
+    garcom.set_avaliacao(avaliacao);
+    }
+}
+
+void Funcionario::calcular_salariofinal(){
+    if(this->_carga_horaria <= 8){
+        this->_salariofinal = this->_salariominimo;
+    } else{
+        this->_horaextra =  this->_carga_horaria - 8 ;
+        this->_salariofinal = this->_salariominimo + 7.5 * (this->_horaextra);            //7.5 o valor da hora extra do salario minimo
     }
 }
 
@@ -37,7 +33,6 @@ void Gerente::demitir_funcionario()
 //A desenvolver...
 }
 
-void Gerente::contratar_funcionario()
-{
-//A desenvolver...
+Garcom Gerente::contratar_garcom(){
+
 }

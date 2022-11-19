@@ -2,14 +2,14 @@
 #include <string>
 #include "Funcionario.h"
 
-Funcionario::Funcionario(std::string nome, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone){
+Funcionario::Funcionario(std::string nome, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone, double salario){
     _nome = nome;
     _codigo = codigo;
     _data_contrato = contratadoem;
     _carga_horaria = cargahoraria;
     _avaliacao = avaliacao;
     _telefone = telefone;
-    _salariominimo = 1200.00
+    _salariominimo= salario;
     _horaextra = 0;
 
 }
@@ -34,10 +34,9 @@ void Funcionario::calcular_salariofinal(){
     if(_carga_horaria <= 8){
         _salariofinal = _salariominimo;
     } else{
-        _horaextra = 8 - _carga_horaria;
-        _salariofinal = _salariominimo + 5.5 * (_horaextra);            //5.5 o valor da hora extra do salario minimo
+        _horaextra = _carga_horaria - 8;
+        this->_salariofinal = _salariominimo + 5.5 * (_horaextra);            //5.5 o valor da hora extra do salario minimo
     }
-
 }
 
 double Funcionario::get_salariofinal(){
@@ -50,6 +49,10 @@ int Funcionario::get_horaextra(){
 
 int Funcionario::get_avaliacao(){
     return this->_avaliacao;
+}
+
+void Funcionario::set_avaliacao(double avaliacao){
+    this->_avaliacao = avaliacao;
 }
 
 std::string Funcionario::get_telefone(){

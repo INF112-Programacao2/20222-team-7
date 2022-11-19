@@ -12,10 +12,11 @@ class Dono
         std::string _nome;
 
     public:
+        Dono(int codigo, std::string nome);
         void definir_salario(Funcionario &aux);
         void demitir_gerente();
-        void contratar_gerente();
-        void avaliar_gerente();     // se nao for ter, tem que excluir o atributo "avaliacao" do gerente
+        Gerente contratar_gerente(std::string nome, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone, double salario);
+        void avaliar_gerente(Gerente &gerente, double avaliacao);
 
 };
 

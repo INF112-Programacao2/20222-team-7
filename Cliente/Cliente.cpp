@@ -5,48 +5,34 @@
 #include "Cliente.h"
 
 
-Cliente::Cliente(std::string nome, std::string cpf, int mesa){
+Cliente::Cliente(std::string nome, int codigo, int mesa){
     this->_nome = nome;
-    this->_cpf = cpf;
+    this->_codigo = codigo;
     this->_mesa = mesa;
 }
 
-std::string Cliente::get_nome()
-{
+std::string Cliente::get_nome(){
     return this->_nome;
 }
 
-std::string Cliente::get_cpf()
-{
-    return this->_cpf;
+int Cliente::get_codigo(){
+    return this->_codigo;
 }
 
-int Cliente::get_mesa()
-{
+int Cliente::get_mesa(){
     return this->_mesa;
 }
 
-void Cliente::fazer_pedido(vector <Item> lista_itens, std::string forma_pag, std::string descricao)
-{   
-    Pedido pedido(this, lista_itens, this->_mesa, forma_pag, descricao);
+Pedido Cliente::fazer_pedido(std::vector <Item> lista_itens, std::string forma_pag, std::string descricao){   
+    return Pedido(*this, lista_itens, this->_mesa, forma_pag, descricao);
 }
 
-void Cliente::avaliar_restaurante(Restaurante rest, double avaliacao)
-{
-    rest.set_avaliacao(avaliacao);
+void Cliente::avaliar_restaurante(Restaurante &rest, double avaliacao){
+    if(avaliacao > 10 || avaliacao < 0){
+        throw std::invalid_argument("Avaliacao deve ser um valor entrew 0 e 10");
+    }else{
+        rest.set_avaliacao(avaliacao);
+    }
 }
 
-void Cliente::fazer_pedido()
-{
-//A desenvolver...
-}
 
-int Cliente::soma()
-{
-//A desenvolver...
-}
-
-int Cliente::avaliar_restaurante()
-{
-//A desenvolver...
-}
