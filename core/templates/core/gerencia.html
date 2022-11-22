@@ -1,0 +1,128 @@
+{%extends 'base.html'%}
+{%load static%}
+<!-- ======= Header ======= -->
+{%block header%}
+
+<header id="header" class="fixed-top d-flex align-items-center " style="top:0px; height:110px;">
+  <span style="color:white; margin-left: 5px;">
+    {%for message in messages%}
+    {{message}}
+    {%endfor%}
+  </span>
+  <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+    <div class="logo me-auto">
+      <h1><a href="{%url 'gerencia'%}">Gerência do CompFood</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html"><img src="static/img/logo.png" alt="" class="img-fluid"></a>-->
+    </div>
+
+
+
+    {%if user.is_superuser%}
+    <a href="{%url 'gerencia' %}" class="book-a-table-btn ">Gerência</a>
+    <a href="{%url 'cadastro_itens'%}" class="book-a-table-btn">Adicionar Itens</a>
+    {%endif%}
+    {%if perms.core.delete_pedido%}
+    <a href="{%url 'pedidos' %}" class="book-a-table-btn">Pedidos</a>
+    {%endif%}
+    <a href="{%url 'logout'%}" class="book-a-table-btn"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+      <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+    </svg></a>
+
+
+
+  </div>
+</header><!-- End Header -->
+{%endblock%}
+{%block content%}
+<main id="main">
+
+  <!-- ======= Breadcrumbs Section ======= -->
+  <section class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+
+        <ol>
+          <li><a href="{%url 'index' %}">Início</a></li>
+          <li>Gerência</li>
+        </ol>
+      </div>
+
+    </div>
+  </section><!-- End Breadcrumbs Section -->
+
+  <section id="contratacao">
+    <div class="container">
+      <span>Contratação de Funcionário</span>
+      <p>
+        <form action="{%url 'gerencia' %}" method="post" role="form" validate>
+          {%csrf_token%}
+          {{funcionario_form}}
+          <div class="text mt-3"><button class="btn book-a-table-btn-square" type="submit">Cadastrar Funcionário</button></div>
+        </form>
+      </p>
+    </div>
+  </section>
+  <hr>
+  <section id="demissao">
+    <div class="container">
+      <span>Demissão de Funcionário</span>
+      <p>
+        <form action="{%url 'gerencia'%}" method="get" role="form" validate>
+
+          <div class="form-group mt-3">
+            <span>
+              <h3>Selecione o Funcionário que será desligado:</h3>
+            </span>
+            <select name="func" id="func" class="form-control" multiple required>
+              {%for func in funcionarios%}
+              <option value={{func.id}}>{{func.nome}} (CPF: {{func.cpf}}) (Nota:{{func.avaliacao}})</option>
+              {%endfor%}
+            </select>
+            <div class="validate"></div>
+          </div>
+
+          <div class="text mt-3 "><button class="btn book-a-table-btn-square" type="submit">Remover Funcionário</button></div>
+        </form>
+      </p>
+    </div>
+  </section>
+  <hr>
+  <section class="avaliacao">
+    <div class="container">
+      <span>Avaliação de Funcionário</span>
+      <p>
+        <form action="{%url 'avaliacao_funcionario' %}" method="post" role="form" validate>
+          {%csrf_token%}
+          <div class="row">
+
+            <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
+              <input type="number" class="form-control" name="nota_func" id="nota_func"
+                placeholder="Nota do funcionário" data-rule="minlen:1" required>
+              <div class="validate"></div>
+            </div>
+
+          </div>
+          <div class="form-group mt-3">
+            <span>
+              <h3>Escolha o funcionário a ser avaliado:</h3>
+            </span>
+            <select name="func_aval" id="func_aval" class="form-control" multiple required>
+              {%for func in funcionarios%}
+              <option value={{func.id}}>{{func.nome}} (CPF: {{func.cpf}}) (Nota:{{func.avaliacao}})</option>
+              {%endfor%}
+            </select>
+            <div class="validate"></div>
+          </div>
+
+          <div class="text mt-3"><button class="btn book-a-table-btn-square" type="submit">Cadastrar Avaliação</button></div>
+        </form>
+      </p>
+    </div>
+  </section>
+
+</main><!-- End #main -->
+{%endblock%}
