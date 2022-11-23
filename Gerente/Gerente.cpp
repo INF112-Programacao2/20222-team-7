@@ -1,16 +1,11 @@
 #include <iostream>
 #include "Gerente.h"
-#include "Funcionario.h"
 #include <stdexcept>
-#include "Garcom.h"
 
-Gerente::Gerente(std::string nome, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone, double salario):
-    Funcionario(nome,codigo,contratadoem,cargahoraria,avaliacao,telefone, salario){};
+Gerente::Gerente(std::string nome, std::string cpf, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone, double salario):
+    Funcionario(nome,cpf, codigo,contratadoem,cargahoraria,avaliacao,telefone, salario, "G1"){};
 
-Gerente::~Gerente(){
-
-}
-int Gerente::avaliar_garcom(Garcom &garcom, double avaliacao){
+void Gerente::avaliar_garcom(Garcom &garcom, double avaliacao){
     if(avaliacao > 10 || avaliacao < 0){
         throw std::invalid_argument("Avaliacao deve ser um valor entrew 0 e 10");
     } else{
@@ -18,7 +13,7 @@ int Gerente::avaliar_garcom(Garcom &garcom, double avaliacao){
     }
 }
 
-void Funcionario::calcular_salariofinal(){
+void Gerente::calcular_salariofinal(){
     if(this->_carga_horaria <= 8){
         this->_salariofinal = this->_salariominimo;
     } else{
@@ -31,8 +26,14 @@ void Funcionario::calcular_salariofinal(){
 void Gerente::demitir_funcionario()
 {
 //A desenvolver...
+    std::cout<< "Demitir funcionario" << std::endl;
 }
 
-Garcom Gerente::contratar_garcom(){
+void Gerente::contratar_garcom(){
+//A desenvolver...
+    std::cout<< "Contratar garcom" << std::endl;
+}
 
+Gerente::~Gerente(){
+    std::cout<< "Gerente destruido" << std::endl;
 }

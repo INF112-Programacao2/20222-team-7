@@ -1,9 +1,15 @@
 #include <iostream>
 #include <string>
-#include "Restaurante.h"
-#include "Pedido.h"
 #include "Cliente.h"
+#include "../Pedido/Pedido.h"
 
+Cliente::Cliente(){
+
+}
+
+Cliente::~Cliente(){
+    std::cout<< "Cliente destruido" << std::endl;
+}
 
 Cliente::Cliente(std::string nome, int codigo, int mesa){
     this->_nome = nome;
@@ -23,8 +29,8 @@ int Cliente::get_mesa(){
     return this->_mesa;
 }
 
-Pedido Cliente::fazer_pedido(std::vector <Item> lista_itens, std::string forma_pag, std::string descricao){   
-    return Pedido(*this, lista_itens, this->_mesa, forma_pag, descricao);
+void Cliente::fazer_pedido(std::vector <Item> lista_itens, std::string forma_pag, std::string descricao){   
+    Pedido *p1 = new Pedido(*this, lista_itens, this->_mesa, forma_pag, descricao);
 }
 
 void Cliente::avaliar_restaurante(Restaurante &rest, double avaliacao){

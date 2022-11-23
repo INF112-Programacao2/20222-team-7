@@ -1,12 +1,11 @@
-#include "Funcionario.h"
 #include "Garcom.h"
 #include <iostream>
 
-Garcom::Garcom(std::string nome, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone, double salario):
-    Funcionario(nome,codigo,contratadoem,cargahoraria,avaliacao,telefone, salario){};
+Garcom::Garcom(std::string nome, std::string cpf,int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone, double salario):
+    Funcionario(nome, cpf, codigo,contratadoem,cargahoraria,avaliacao,telefone, salario, "G2"){};
 
 
-void Funcionario::calcular_salariofinal(){
+void Garcom::calcular_salariofinal(){
     if(_carga_horaria <= 8){
         _salariofinal = _salariominimo;
     } else{
@@ -17,10 +16,14 @@ void Funcionario::calcular_salariofinal(){
 }
 
 void Garcom::verPedidos(){
-
+    std::cout<< "Visualizando pedidos" << std::endl;
 }
 
 void Garcom::finalizarPedidos(){
+    std::cout<< "Finalizando pedidos" << std::endl;
+}
+Garcom::~Garcom(){
+    std::cout<< "Garcom destruido" << std::endl;
 }
 
 

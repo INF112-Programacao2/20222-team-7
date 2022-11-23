@@ -1,12 +1,13 @@
 #ifndef PEDIDO_H
 #define PEDIDO_H
 
-#include "Cliente.h"
-#include "Item.h"
-#include "Garcom.h"
-
+#include "../Cliente/Cliente.h"
+#include "../Item/Item.h"
+#include "../Garcom/Garcom.h"
 #include <string>
 #include <algorithm>
+
+class Cliente;
 
 class Pedido{
     private:
@@ -20,13 +21,14 @@ class Pedido{
         static int _qtd_pedidos;
 
     public:
-        Pedido(Cliente cliente, std::vector <Item> lista_itens, int mesa, std::string forma_pag, std::string descricao);
+        Pedido(Cliente& cliente, std::vector <Item> lista_itens, int mesa, std::string forma_pag, std::string descricao);
         double get_preco();
         int get_mesa();
         std::string get_forma_pagamento();              //Nao sei se esse get sera util...
         std::string get_descricao();
         int get_codigo();
         double get_tempo_espera();
+        ~Pedido();
 };
 
 #endif

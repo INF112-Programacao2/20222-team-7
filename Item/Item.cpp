@@ -23,13 +23,17 @@ double Item::get_preco()
     return this->_preco;
 }
 
-double Item::get_tempo_preparo()
-{
-
-    return this->_tempo_preparo;
-}
-
 int Item::get_codigo()
 {
     return this->_codigo;
+}
+
+double Item::get_tempo_preparo()
+{
+    return 30;
+}
+
+Item::~Item()
+{
+    std::cout << "Item destruido" << std::endl;
 }

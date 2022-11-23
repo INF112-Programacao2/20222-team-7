@@ -1,9 +1,9 @@
 #ifndef DONO_H
 #define DONO_H
 
-#include "Gerente.h"
+#include "../Gerente/Gerente.h"
 #include <string>
-#include "Funcionario.h"
+#include "../Funcionario/Funcionario.h"
 
 class Dono
 {
@@ -12,12 +12,15 @@ class Dono
         std::string _nome;
 
     public:
+        Dono();
+        ~Dono();
         Dono(int codigo, std::string nome);
         void definir_salario(Funcionario &aux);
         void demitir_gerente();
-        Gerente contratar_gerente(std::string nome, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone, double salario);
+        void contratar_gerente(std::string nome, std::string cpf, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone, double salario);
         void avaliar_gerente(Gerente &gerente, double avaliacao);
-
+        std::string get_nome();
+        int get_codigo();
 };
 
 #endif

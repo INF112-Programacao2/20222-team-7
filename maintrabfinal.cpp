@@ -1,10 +1,10 @@
 #include <iostream>
-#include "Restaurante.h"
-#include "Cliente.h"
-#include "Funcionario.h"
-#include "Gerente.h"
-#include "Item.h"
-#include "Pedido.h"
+#include "./Restaurante/Restaurante.h"
+#include "./Cliente/Cliente.h"
+#include "./Funcionario/Funcionario.h"
+#include "./Gerente/Gerente.h"
+#include "./Item/Item.h"
+#include "./Pedido/Pedido.h"
 
 
 bool cliente_logado = false;
@@ -137,7 +137,7 @@ int main(){
     else if(cliente_logado)
         cabecalho_cliente();
 
-    
+    Funcionario f1("ADAIR","444",1, "21/02/15", 10, 0, "5999", 154, "G2");
     
     return 0;
 }

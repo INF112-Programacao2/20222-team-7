@@ -1,13 +1,10 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
-#include "Dono.h"
-#include "Funcionario.h"
-#include "Item.h"
 #include "Restaurante.h"
 
 
-Restaurante::Restaurante(Dono _dono, std::string _localizacao, std::string _nome, int _num_funcionarios, std::string _horario_funcionamento, std::vector <Item> _cardapio, std::string _telefone)
+Restaurante::Restaurante(Dono& _dono, std::string _localizacao, std::string _nome, int _num_funcionarios, std::string _horario_funcionamento, std::vector <Item> _cardapio, std::string _telefone)
 {
     this->_dono = _dono;
     this->_localizacao = _localizacao;
@@ -21,8 +18,9 @@ Restaurante::Restaurante(Dono _dono, std::string _localizacao, std::string _nome
 }
 
 
-Dono Restaurante::get_dono(){
-    return this->_dono;
+std::string Restaurante::get_nome_dono(){
+    //return this->_dono.get_nome();
+    return "Grupo DILA";
 }
 
 std::string Restaurante::get_localizacao(){
@@ -55,4 +53,8 @@ double Restaurante::get_avaliacaomedia(){
     return (this->_soma_avaliacao)/(this->_n_avaliacao);
 }
 
+Restaurante::~Restaurante()
+{
+    std::cout << "Restaurante destruido" << std::endl;
+}
 

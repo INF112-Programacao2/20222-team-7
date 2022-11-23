@@ -1,14 +1,12 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
-#include "Cliente.h"
-#include "Item.h"
 #include "Pedido.h"
-#include "Garcom.h"
 
 int Pedido::_qtd_pedidos=0;
 
-Pedido::Pedido(Cliente cliente, std::vector <Item> lista_itens, int mesa, std::string forma_pag, std::string descricao){
+
+Pedido::Pedido(Cliente& cliente, std::vector <Item> lista_itens, int mesa, std::string forma_pag, std::string descricao){
     _qtd_pedidos++;
     this->_cliente = cliente;
     this->_lista_itens = lista_itens;
@@ -46,4 +44,8 @@ std::string Pedido::get_descricao(){
 double Pedido::get_tempo_espera(){
     return _qtd_pedidos*30;
 
+}
+
+Pedido::~Pedido(){
+    std::cout << "Pedido destruido" << std::endl;
 }

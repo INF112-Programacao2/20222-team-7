@@ -1,18 +1,17 @@
 #ifndef GERENTE_H
 #define GERENTE_H
 
-#include "Funcionario.h"
-#include "Garcom.h"
+#include "../Funcionario/Funcionario.h"
+#include "../Garcom/Garcom.h"
 
 class Gerente : public Funcionario{
     public:
-        int avaliar_garcom(Garcom &garcom, double avaliacao);
+        void avaliar_garcom(Garcom &garcom, double avaliacao);
         void demitir_funcionario();
-        Garcom contratar_garcom();
-        Gerente(std::string nome, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone, double salario);
+        void contratar_garcom();
+        Gerente(std::string nome, std::string cpf, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone, double salario);
+        virtual void calcular_salariofinal() override;
         ~Gerente();
-        void calcular_salariofinal() override;
-          
 };
 
 #endif
