@@ -40,5 +40,3 @@ void Cliente::avaliar_restaurante(Restaurante &rest, double avaliacao){
         rest.set_avaliacao(avaliacao);
     }
 }
-
-

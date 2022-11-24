@@ -1,11 +1,10 @@
 #include <iostream>
 #include "./Restaurante/Restaurante.h"
 #include "./Cliente/Cliente.h"
-#include "./Funcionario/Funcionario.h"
 #include "./Gerente/Gerente.h"
+#include "./Garcom/Garcom.h"
 #include "./Item/Item.h"
 #include "./Pedido/Pedido.h"
-
 
 bool cliente_logado = false;
 bool garcom_logado = false;
@@ -137,8 +136,10 @@ int main(){
     else if(cliente_logado)
         cabecalho_cliente();
 
-    Funcionario f1("ADAIR","444",1, "21/02/15", 10, 0, "5999", 154, "G2");
+    // Data de funcionário no estilo YYYY-MM-DD
+    Gerente* g2 = new Gerente("ADAIR","444",1, "2013-10-29", 10, 0, "5999", 154);
+    std::cout << g2->get_cpf() << std::endl;
+    delete g2;
     
     return 0;
 }
-
