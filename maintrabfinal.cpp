@@ -13,9 +13,9 @@ bool gerente_logado = false;
 
 
 void cabecalho_boas_vindas(){
-    std::cout << "\t\t===================================================" << std::endl;
-    std::cout << "\t\tBOAS VINDAS AO SISTEMA DE GERENCIAMENTO DO COMPFOOD " << std::endl;
-    std::cout << "\t\t===================================================" << std::endl;
+    std::cout << "===================================================" << std::endl;
+    std::cout << "BOAS VINDAS AO SISTEMA DE GERENCIAMENTO DO COMPFOOD " << std::endl;
+    std::cout << "===================================================" << std::endl;
 }
 
 void cabecalho_dono(Dono &dono){
@@ -146,7 +146,7 @@ void cabecalho_garcom(Garcom &garcom){
         case 4:
             try
             {
-                garcom.listar_pedidos();
+                garcom.verPedidos();
             }
             catch(const std::exception& e)
             {
@@ -157,7 +157,8 @@ void cabecalho_garcom(Garcom &garcom){
         case 5:
             try
             {
-                garcom.finalizar_pedido();
+                garcom.verPedidos();
+                garcom.finalizarPedido();
             }
             catch(const std::exception& e)
             {
@@ -325,7 +326,7 @@ int main(){
     else if(gerente_logado)
         cabecalho_gerente(gerente_operador);
     else if(garcom_logado)
-        cabecalho_garcom();
+        cabecalho_garcom(garcom_operador);
     else if(cliente_logado)
         cabecalho_cliente();
 
