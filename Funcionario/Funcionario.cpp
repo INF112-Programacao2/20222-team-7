@@ -6,6 +6,10 @@
 
 #include <stdexcept>
 
+Funcionario::Funcionario(){
+
+}
+
 Funcionario::Funcionario(std::string nome, std::string cpf, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone, double salario, std::string cargo)
 {
     this->_nome = nome;
@@ -28,31 +32,33 @@ Funcionario::Funcionario(std::string nome, std::string cpf, int codigo, std::str
         int rc;
         sqlite3_stmt *stmt;
         std::string query = "INSERT INTO core_funcionario (nome, cpf, data_contrato, carga_horaria, avaliacao, telefone, salario, cargo, restaurante_id) VALUES ('"+ _nome +"'"+ ",'"+_cpf+"','"+_data_contrato+"'" +
-        ","+std::to_string(_carga_horaria)+","+ std::to_string(_avaliacao)+",'"+telefone+"',"+ std::to_string(_salariofinal)+",'"+ _cargo+"',2)";
-        std::cout << query << std::endl;
+        ","+std::to_string(_carga_horaria)+","+ std::to_string(_avaliacao)+",'"+telefone+"',"+ std::to_string(_salariominimo)+",'"+ _cargo+"',2)";
+
+        //std::cout << query << std::endl;
 
         rc = sqlite3_open("./db.sqlite3", &db);
-        std::cout << "Ok!\n";
         rc = sqlite3_exec(db, query.c_str(), NULL, NULL, &msg_erro);
         if (rc != SQLITE_OK)
         {
-            throw std::invalid_argument("Erro ao inserir funcionário no banco de dados");
             sqlite3_close(db);
+            throw std::invalid_argument(msg_erro);
         }
         else
         {
-            std::cout << "Funcionário cadastrado com sucesso!" << std::endl;
+            sqlite3_close(db);
+            // tudo certo
+            std::cout << "TUDO PRONTO PARA CONTINUAR =)" << std::endl;
         }
+        
     }
     catch (std::exception &e)
     {
-        std::cout << "Erro ao acessar banco de dados" << std::endl;
+        std::cout << "Erro ao acessar banco de dados: "<<e.what() << std::endl;
     }
 }
 
 std::string Funcionario::get_nome()
 {
-
     return this->_nome;
 }
 
@@ -94,21 +100,22 @@ int Funcionario::get_avaliacao()
     return this->_avaliacao;
 }
 
-void Funcionario::set_avaliacao(double avaliacao)
-{
-    this->_avaliacao = avaliacao;
-}
-
 std::string Funcionario::get_telefone()
 {
     return this->_telefone;
 }
+
 std::string Funcionario::get_cpf()
 {
     return this->_cpf;
 }
 
+void Funcionario::set_avaliacao(int avaliacao)
+{
+    this->_avaliacao = avaliacao;
+}
+
 Funcionario::~Funcionario()
 {
-    std::cout << "Funcionario destruido" << std::endl;
+
 }

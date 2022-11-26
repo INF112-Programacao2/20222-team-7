@@ -47,5 +47,4 @@ double Pedido::get_tempo_espera(){
 }
 
 Pedido::~Pedido(){
-    std::cout << "Pedido destruido" << std::endl;
 }

@@ -8,7 +8,6 @@ Cliente::Cliente(){
 }
 
 Cliente::~Cliente(){
-    std::cout<< "Cliente destruido" << std::endl;
 }
 
 Cliente::Cliente(std::string nome, int codigo, int mesa){

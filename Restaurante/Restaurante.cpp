@@ -55,6 +55,6 @@ double Restaurante::get_avaliacaomedia(){
 
 Restaurante::~Restaurante()
 {
-    std::cout << "Restaurante destruido" << std::endl;
+    
 }
 

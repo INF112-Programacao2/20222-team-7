@@ -15,10 +15,10 @@ class Dono
         Dono();
         ~Dono();
         Dono(int codigo, std::string nome);
-        void definir_salario(Funcionario &aux);
+        void definir_salario();
         void demitir_gerente();
-        void contratar_gerente(std::string nome, std::string cpf, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone, double salario);
-        void avaliar_gerente(Gerente &gerente, double avaliacao);
+        void contratar_gerente();
+        void avaliar_gerente();
         std::string get_nome();
         int get_codigo();
 };

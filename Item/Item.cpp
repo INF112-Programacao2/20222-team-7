@@ -35,5 +35,5 @@ double Item::get_tempo_preparo()
 
 Item::~Item()
 {
-    std::cout << "Item destruido" << std::endl;
+    
 }

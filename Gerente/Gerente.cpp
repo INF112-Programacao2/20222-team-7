@@ -1,15 +1,57 @@
 #include <iostream>
 #include "Gerente.h"
 #include <stdexcept>
+#include <sqlite3.h>
+
+Gerente::Gerente(){
+
+}
 
 Gerente::Gerente(std::string nome, std::string cpf, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone, double salario):
     Funcionario(nome,cpf, codigo,contratadoem,cargahoraria,avaliacao,telefone, salario, "G1"){};
 
-void Gerente::avaliar_garcom(Garcom &garcom, double avaliacao){
+void Gerente::avaliar_garcom(){
+    std::string cpf_garcom;
+    double avaliacao;
+    std::cout<< "=======================================================" << std::endl;
+    std::cout<< "PREENCHA O FORMULÁRIO ABAIXO PARA A AVALIAÇÃO DO GARÇOM" << std::endl;
+    std::cout<< "=======================================================" << std::endl;
+    std::cout<< "CPF DO GERENTE: " << std::endl;
+    std::cin >> cpf_garcom;
+    std::cout<< "AVALIAÇÃO: " << std::endl;
+    std::cin >> avaliacao;
+
     if(avaliacao > 10 || avaliacao < 0){
         throw std::invalid_argument("Avaliacao deve ser um valor entrew 0 e 10");
     } else{
-    garcom.set_avaliacao(avaliacao);
+    try{
+        char *msg_erro;
+        sqlite3 *db;
+
+        int rc;
+        sqlite3_stmt *stmt;
+        std::string query = "UPDATE core_funcionario SET avaliacao = "+ std::to_string(avaliacao) +" WHERE cpf = "+ cpf_garcom;
+        std::cout << query << std::endl;
+
+        rc = sqlite3_open("./db.sqlite3", &db);
+        std::cout << "Ok!\n";
+        rc = sqlite3_exec(db, query.c_str(), NULL, NULL, &msg_erro);
+        if (rc != SQLITE_OK)
+        {
+            sqlite3_close(db);
+            throw std::invalid_argument("Erro atualizar avaliação de garçom no banco de dados");
+        }
+        else
+        {
+            sqlite3_close(db);
+            std::cout << "Avaliação de garçom cadastrada com sucesso!" << std::endl;
+        }
+        
+    }
+    catch (std::exception &e)
+    {
+        std::cout << "Erro ao acessar banco de dados" << std::endl;
+    }
     }
 }
 
@@ -20,20 +62,105 @@ void Gerente::calcular_salariofinal(){
         this->_horaextra =  this->_carga_horaria - 8 ;
         this->_salariofinal = this->_salariominimo + 7.5 * (this->_horaextra);            //7.5 o valor da hora extra do salario minimo
     }
+    try{
+        char *msg_erro;
+        sqlite3 *db;
+
+        int rc;
+        sqlite3_stmt *stmt;
+        std::string query = "UPDATE core_funcionario SET salario = "+ std::to_string(this->_salariofinal) +" WHERE cpf = "+ this->_cpf;
+        std::cout << query << std::endl;
+
+        rc = sqlite3_open("./db.sqlite3", &db);
+        std::cout << "Ok!\n";
+        rc = sqlite3_exec(db, query.c_str(), NULL, NULL, &msg_erro);
+        if (rc != SQLITE_OK)
+        {
+            sqlite3_close(db);
+            throw std::invalid_argument("Erro ao atualizar salário de gerente no banco de dados");
+        }
+        else
+        {
+            sqlite3_close(db);
+            std::cout << "Salário final do gerente cadastrado com sucesso!" << std::endl;
+        }
+        
+    }
+    catch (std::exception &e)
+    {
+        std::cout << "Erro ao acessar banco de dados" << std::endl;
+    }
 }
 
 
-void Gerente::demitir_funcionario()
+void Gerente::demitir_garcom()
 {
-//A desenvolver...
-    std::cout<< "Demitir funcionario" << std::endl;
+    std::string cpf_garcom;
+    std::cout<<"======================================="<<std::endl;
+    std::cout<<"PREENCHA O CPF DO GARÇOM A SER DEMITIDO"<<std::endl;
+    std::cout<<"======================================="<<std::endl;
+    std::cout<<"CPF: ";
+    std::cin>> cpf_garcom;
+    try
+    {
+        char *msg_erro;
+        sqlite3 *db;
+
+        int rc;
+        sqlite3_stmt *stmt;
+        std::string query = "DELETE FROM core_funcionario WHERE cpf = "+ cpf_garcom;
+
+        rc = sqlite3_open("./db.sqlite3", &db);
+        
+        rc = sqlite3_exec(db, query.c_str(), NULL, NULL, &msg_erro);
+        if (rc != SQLITE_OK)
+        {
+            sqlite3_close(db);
+            throw std::invalid_argument("Erro ao deletar funcionário do banco de dados");
+        }
+        else
+        {
+            sqlite3_close(db);
+            std::cout << "Funcionário demitido com sucesso!" << std::endl;
+        }
+        
+    }
+    catch (std::exception &e)
+    {
+        std::cout << "Erro ao acessar banco de dados" << std::endl;
+    }
 }
 
 void Gerente::contratar_garcom(){
-//A desenvolver...
-    std::cout<< "Contratar garcom" << std::endl;
+    std::string nome, cpf, contratadoem, telefone;
+    int codigo, cargahoraria, avaliacao;
+    double salario;
+    std::cout<< "==========================================================" << std::endl;
+    std::cout<< "PREENCHA O FORMULÁRIO ABAIXO PARA CONTRATAR UM NOVO GARÇOM" << std::endl;
+    std::cout<< "==========================================================" << std::endl;
+    std::cout<< "NOME: " << std::endl;
+    std::cin >> nome;
+    std::cout<< "CPF: " << std::endl;
+    std::cin >> cpf;
+    std::cout<< "TELEFONE: " << std::endl;
+    std::cin >> telefone;
+    std::cout<< "DATA DE CONTRATAÇÃO: " << std::endl;
+    std::cin >> contratadoem;
+    std::cout<< "CARGA HORÁRIA: " << std::endl;
+    std::cin >> cargahoraria;
+    std::cout<< "AVALIAÇÃO INICIAL: " << std::endl;
+    std::cin >> avaliacao;
+    std::cout<< "CÓDIGO IDENTIFICADOR: " << std::endl;
+    std::cin >> codigo;
+    std::cout<< "SALÁRIO: " << std::endl;
+    std::cin >> salario;
+
+    Garcom* garcom = new Garcom(nome, cpf, codigo, contratadoem, cargahoraria, avaliacao, telefone, salario);
+    garcom->calcular_salariofinal();
+
+    delete garcom;
 }
 
 Gerente::~Gerente(){
-    std::cout<< "Gerente destruido" << std::endl;
+    
 }

@@ -19,13 +19,14 @@ class Funcionario
         std::string _cpf;
 
     public:
+        Funcionario();
         Funcionario(std::string nome, std::string cpf ,int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone, double salario, std::string cargo);
         std::string get_nome();
         int get_codigo();
         std::string get_data_contrato();
         double get_salariofinal();
         int get_avaliacao();
-        void set_avaliacao(double avaliacao);
+        void set_avaliacao(int avaliacao);
         std::string get_telefone();
         int get_horaextra();
         std::string get_cpf();

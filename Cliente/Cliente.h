@@ -21,7 +21,6 @@ class Cliente
         int get_mesa();
         void fazer_pedido(std::vector <Item> lista_itens, std::string forma_pag, std::string descricao);
         void avaliar_restaurante(Restaurante &rest, double avaliacao);
-         
 };
 
 #endif
