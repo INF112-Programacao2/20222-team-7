@@ -1,10 +1,10 @@
 #include <iostream>
-#include "Restaurante.h"
-#include "Cliente.h"
-#include "Funcionario.h"
-#include "Gerente.h"
-#include "Item.h"
-#include "Pedido.h"
+#include "./Restaurante/Restaurante.h"
+#include "./Cliente/Cliente.h"
+#include "./Funcionario/Funcionario.h"
+#include "./Gerente/Gerente.h"
+#include "./Item/Item.h"
+#include "./Pedido/Pedido.h"
 
 int main(){
     Item* itemum = new Item("Filé de Frango", "Acompanha: arroz,feijão,farofa,alface,tomate e cenoura", 17.9, 1);
@@ -33,14 +33,14 @@ int main(){
     Item* itemvintequatro = new Item("Lasanha 4 Queijos", "Molho branco, provolone, parmesão, mussarela e catupiry", 26.9, 24);
     Item* itemvintecinco = new Item("Lasanha Bolonhesa", "Molho vermelho, carne moida, mussarela", 26.9, 25);
     Item* itemvinteseis = new Item("Lasanha Frango com Catupiry", "Molho rosé, frango desfiado, mussarela e catupiry", 26.9, 26);
-    Item* itemvintesete = new Item("Porção Picanha bovina com fritas(600g)", 62.9, 27);
-    Item* itemvinteoito = new Item("Porção Contrafilé com fritas(600g)", 52.9, 28);
-    Item* itemvintenove = new Item("Porção Torresmo com linguiça(600g)", 39.9, 29);
-    Item* itemtrinta = new Item("Porção Fritas com queijo e bacon", 12.9, 30);
-    Item* itemtrintaum = new Item("Refrigerante Coca Cola 1L", 9.9, 31);
-    Item* itemtrintadois = new Item("Guaraná Kuat 600ml", 6.9, 32);
-    Item* itemtrintatres = new Item("Suco Natural de Laranja", 10.9, 33);
-    Item* itemtrintaquatro = new Item("Brownie", 6.9, 34);
+    Item* itemvintesete = new Item("Porção Picanha bovina com fritas(600g)", "", 62.9, 27);
+    Item* itemvinteoito = new Item("Porção Contrafilé com fritas(600g)","", 52.9, 28);
+    Item* itemvintenove = new Item("Porção Torresmo com linguiça(600g)","", 39.9, 29);
+    Item* itemtrinta = new Item("Porção Fritas com queijo e bacon","", 12.9, 30);
+    Item* itemtrintaum = new Item("Refrigerante Coca Cola 1L","", 9.9, 31);
+    Item* itemtrintadois = new Item("Guaraná Kuat 600ml","",6.9, 32);
+    Item* itemtrintatres = new Item("Suco Natural de Laranja","", 10.9, 33);
+    Item* itemtrintaquatro = new Item("Brownie","",6.9, 34);
             
 
     itemum->ImprimeItem();          // testar 
@@ -62,7 +62,7 @@ int main(){
     delete itemtreze;
     delete itemcatorze;
     delete itemquinze;
-    delete itemdezeseis;
+    delete itemdezesseis;
     delete itemdezessete;
     delete itemdezoito;
     delete itemdezenove;
@@ -83,7 +83,6 @@ int main(){
     delete itemtrintaquatro;
 
     
-
     return 0;
 }
 

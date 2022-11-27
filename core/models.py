@@ -10,6 +10,7 @@ class Item(models.Model):
     nome = models.CharField(verbose_name= "Nome do Item", max_length=256)
     preco = models.FloatField(verbose_name="Valor")
     tempo_preparo_minutos = models.FloatField(verbose_name="Tempo de preparo(minutos)")
+    descricao = models.TextField(verbose_name="Descrição", null=True, blank=True)
 
     def __str__(self):
         return f"{self.nome}"

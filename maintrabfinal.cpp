@@ -5,12 +5,27 @@
 #include "./Garcom/Garcom.h"
 #include "./Item/Item.h"
 #include "./Pedido/Pedido.h"
+#include <boost/function.hpp>
+#include <boost/bind.hpp>
 
 bool cliente_logado = false;
 bool garcom_logado = false;
 bool dono_logado = false;
 bool gerente_logado = false;
+int main();
 
+void redirecionamento(boost::function<void()>funcao_cabecalho){
+    std::string opcao;
+    std::cout << "DESEJA VOLTAR AO MENU ANTERIOR? (1 - SIM / 2 - NÃO)" << std::endl;
+    std::cin >> opcao;
+    if(opcao == "1"){
+        system("clear");
+        funcao_cabecalho();
+    }else{
+        std::cout << "OBRIGADO POR UTILIZAR NOSSO SISTEMA" << std::endl;
+        std::exit(0);
+    }
+}
 
 void cabecalho_boas_vindas(){
     std::cout << "===================================================" << std::endl;
@@ -34,12 +49,14 @@ void cabecalho_dono(Dono &dono){
             try
             {
                dono.contratar_gerente();
+               
             }
             catch(const std::exception& e)
             {
                 std::cerr << e.what() << '\n';
+                
             }
-            
+            redirecionamento( boost::bind( &cabecalho_dono, dono ));
             break;
         case 8:
             try
@@ -50,7 +67,7 @@ void cabecalho_dono(Dono &dono){
             {
                 std::cerr << e.what() << '\n';
             }
-            
+            redirecionamento(  boost::bind( &cabecalho_dono, dono ));
             break;
         case 9:
             try
@@ -61,6 +78,7 @@ void cabecalho_dono(Dono &dono){
             {
                 std::cerr << e.what() << '\n';
             }
+            redirecionamento(  boost::bind( &cabecalho_dono, dono ));
             break;
         case 10:
             try
@@ -71,10 +89,11 @@ void cabecalho_dono(Dono &dono){
             {
                 std::cerr << e.what() << '\n';
             }
-            
+            redirecionamento( boost::bind( &cabecalho_dono, dono ));
             break;
         default:
             std::cout << "OPÇÃO INVÁLIDA" << std::endl;
+            redirecionamento( boost::bind( &cabecalho_dono, dono ));
             break;
     }
 
@@ -82,7 +101,6 @@ void cabecalho_dono(Dono &dono){
 }
 
 void cabecalho_gerente(Gerente &gerente){
-    //Contém todas as funções que o código terá, exemplo: Contaratar funcionário,
     int opc;
     std::cout << "=============================================================" << std::endl;
     std::cout << "CONTRATAR GARCOM - 1\n";
@@ -97,12 +115,13 @@ void cabecalho_gerente(Gerente &gerente){
             try
             {
                 gerente.contratar_garcom();
+
             }
             catch(const std::exception& e)
             {
                 std::cerr << e.what() << '\n';
             }
-            
+            redirecionamento(boost::bind( &cabecalho_gerente, gerente ));
             break;
         case 2:
             try
@@ -113,7 +132,7 @@ void cabecalho_gerente(Gerente &gerente){
             {
                 std::cerr << e.what() << '\n';
             }
-            
+            redirecionamento(boost::bind( &cabecalho_gerente, gerente ));
             break;
         case 3:
             try
@@ -124,10 +143,11 @@ void cabecalho_gerente(Gerente &gerente){
             {
                 std::cerr << e.what() << '\n';
             }
-            
+            redirecionamento(boost::bind( &cabecalho_gerente, gerente ));
             break;
         default:
             std::cout << "OPÇÃO INVÁLIDA" << std::endl;
+            redirecionamento(boost::bind( &cabecalho_gerente, gerente ));
             break;
     }
 }
@@ -152,7 +172,7 @@ void cabecalho_garcom(Garcom &garcom){
             {
                 std::cerr << e.what() << '\n';
             }
-            
+            redirecionamento(boost::bind( &cabecalho_garcom, garcom) );
             break;
         case 5:
             try
@@ -164,10 +184,11 @@ void cabecalho_garcom(Garcom &garcom){
             {
                 std::cerr << e.what() << '\n';
             }
-            
+            redirecionamento(boost::bind( &cabecalho_garcom, garcom) );
             break;
         default:
             std::cout << "OPÇÃO INVÁLIDA" << std::endl;
+            redirecionamento(boost::bind( &cabecalho_garcom, garcom) );
             break;
     }
 }
@@ -199,6 +220,8 @@ Cliente logar_cliente(){
         std::cout << "==================================" << std::endl;
         std::cout << "USUÁRIO OU SENHA INCORRETOS =(\n";
         std::cout << "==================================" << std::endl;
+
+        redirecionamento(boost::bind( &logar_cliente ));
     }
 
     Cliente cliente = Cliente("Cliente Operador", 1, 1);
@@ -227,6 +250,8 @@ Garcom logar_garcom(){
         std::cout << "==================================" << std::endl;
         std::cout << "USUÁRIO OU SENHA INCORRETOS =(\n";
         std::cout << "==================================" << std::endl;
+        redirecionamento(boost::bind( &logar_garcom ));
+
     }
     Garcom garcom = Garcom("Garçom Operador", "12345678910", 2, "2020-01-01", 8, 10, "12345678910", 1000);
     return garcom;
@@ -253,6 +278,8 @@ Gerente logar_gerente(){
         std::cout<<"=================================="<<std::endl;
         std::cout<<"USUÁRIO OU SENHA INCORRETOS =(\n";
         std::cout<<"=================================="<<std::endl;
+        redirecionamento(boost::bind( &logar_gerente ));
+
     }
     Gerente gerente("Gerente Operador", "123456789", 1, "2020-01-01", 40, 5, "123456789", 1000);
     return gerente;
@@ -276,6 +303,13 @@ Dono logar_dono(){
         std::cout<<"PROPRIETÁRIO LOGADO COM SUCESSO =)\n";
         std::cout<<"====================================="<<std::endl;
     }
+    else{
+        std::cout<<"====================================="<<std::endl;
+        std::cout<<"USUÁRIO OU SENHA INCORRETOS =(\n";
+        std::cout<<"====================================="<<std::endl;
+        redirecionamento(boost::bind( &logar_dono ));
+
+    }
 
     Dono dono_default(1, "GRUPO DILA"); 
     return dono_default;
@@ -289,6 +323,7 @@ int cabecalho_login(){
     std::cout << "LOGIN GERENTE - 2\n";
     std::cout << "LOGIN GARÇOM - 3\n";
     std::cout << "LOGIN CLIENTE - 4\n";
+    std::cout << "FINALIZAR - 5\n";
     int opc;
     std::cout<<"ESCOLHA UMA OPÇÃO: \n";
     std::cin >> opc;
@@ -317,9 +352,17 @@ int main(){
     case 4:
         cliente_operador = logar_cliente();
         break;
-    
+    case 5:
+        std::cout << "================================" << std::endl;
+        std::cout << "PROGRAMA FINALIZADO COM SUCESSO\n";
+        std::cout << "================================" << std::endl;
+        exit(0);
+        break;
     default:
         std::cout<< "OPCÃO INVÁLIDA\n";
+        std::cout << "OBRIAGADO POR USAR O SISTEMA =)\n";
+        break;
+
     }
     if (dono_logado)
         cabecalho_dono(dono_operador);
@@ -330,8 +373,6 @@ int main(){
     else if(cliente_logado)
         cabecalho_cliente();
 
-    // Data de funcionário no estilo YYYY-MM-DD
-    
-    
+
     return 0;
 }

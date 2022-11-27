@@ -89,10 +89,7 @@ void Garcom::calcular_salariofinal(){
         int rc;
         sqlite3_stmt *stmt;
         std::string query = "UPDATE core_funcionario SET salario = "+ std::to_string(this->_salariofinal) +" WHERE cpf = "+ this->_cpf;
-        std::cout << query << std::endl;
-
         rc = sqlite3_open("./db.sqlite3", &db);
-        std::cout << "Ok!\n";
         rc = sqlite3_exec(db, query.c_str(), NULL, NULL, &msg_erro);
         if (rc != SQLITE_OK)
         {
@@ -122,10 +119,7 @@ void Garcom::verPedidos(){
         int rc;
         sqlite3_stmt *stmt;
         std::string query = "SELECT * FROM core_pedido";
-        std::cout << query << std::endl;
-
         rc = sqlite3_open("./db.sqlite3", &db);
-        std::cout << "Ok!\n";
         rc = sqlite3_exec(db, query.c_str(), callback_pedidos, (void*)"", &msg_erro);
         if (rc != SQLITE_OK)
         {
@@ -156,13 +150,16 @@ void Garcom::finalizarPedido(){
         char *msg_erro;
         sqlite3 *db;
 
-        int rc;
+        int rc1, rc2;
         sqlite3_stmt *stmt;
         std::string query = "DELETE FROM core_pedido WHERE id = "+ std::to_string(id_pedido);
         
-        rc = sqlite3_open("./db.sqlite3", &db);
-        rc = sqlite3_exec(db, query.c_str(), NULL, NULL, &msg_erro);
-        if (rc != SQLITE_OK)
+        rc1 = sqlite3_open("./db.sqlite3", &db);
+        rc1 = sqlite3_exec(db, query.c_str(), NULL, NULL, &msg_erro);
+        query = "DELETE FROM core_pedido_lista_itens WHERE pedido_id = "+ std::to_string(id_pedido);
+        rc2 = sqlite3_exec(db, query.c_str(), NULL, NULL, &msg_erro);
+
+        if (rc1 != SQLITE_OK || rc2 != SQLITE_OK)
         {
             sqlite3_close(db);
             throw std::invalid_argument("Erro ao finalizar pedido no banco de dados");
