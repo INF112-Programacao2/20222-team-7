@@ -1,4 +1,4 @@
-#  CompFood - uma ferramenta intergrada para gerenciamento de restaurantes
+#  CompFood - uma ferramenta integrada para gerenciamento de restaurantes
 
 O projeto consiste em um gerenciador 
 de funcionários, pedidos, cardápio e clientes de 
