@@ -38,6 +38,7 @@ Funcionario::Funcionario(std::string nome, std::string cpf, int codigo, std::str
 
         rc = sqlite3_open("./db.sqlite3", &db);
         rc = sqlite3_exec(db, query.c_str(), NULL, NULL, &msg_erro);
+        
         if (rc != SQLITE_OK)
         {
             sqlite3_close(db);
@@ -46,8 +47,10 @@ Funcionario::Funcionario(std::string nome, std::string cpf, int codigo, std::str
         else
         {
             sqlite3_close(db);
-            if(!msg_erro)
+            if(!msg_erro && sqlite3_changes(db) > 0)
                 std::cout << "Funcionário cadastrado com sucesso!" << std::endl;
+            else
+                std::cout << "Não foi possível concluir alteração"<<std::endl;
         }
         
     }

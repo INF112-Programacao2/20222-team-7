@@ -2,6 +2,7 @@
 #include <string>
 #include "Dono.h"
 #include <sqlite3.h>
+#include <iomanip>
 
 static int callback_gerente(void *data, int argc, char **argv, char **azColName)
 {
@@ -9,7 +10,7 @@ static int callback_gerente(void *data, int argc, char **argv, char **azColName)
 
     for (i = 0; i < argc; i++)
     {
-        std::cout << azColName[i] << " = " << (argv[i] ? argv[i] : "NULL") << "   ";
+        std::cout<<std::setfill(' ')<<std::setw(5) << azColName[i] << " = " << (argv[i] ? argv[i] : "NULL") << "   ";
     }
 
     std::cout << std::endl;
@@ -65,8 +66,10 @@ void Dono::definir_salario()
         else
         {
             sqlite3_close(db);
-            if(!msg_erro)
+            if(!msg_erro && sqlite3_changes(db) > 0)
                 std::cout << "Salário de funcionário definido com sucesso!" << std::endl;
+            else
+                std::cout << "Não foi possível concluir alteração"<<std::endl;
         }
     }
     catch (std::exception &e)
@@ -106,8 +109,10 @@ void Dono::demitir_gerente()
         else
         {
             sqlite3_close(db);
-            if(!msg_erro)
+            if(!msg_erro && sqlite3_changes(db) > 0)
                 std::cout << "Funcionário demitido com sucesso!" << std::endl;
+            else
+                std::cout << "Não foi possível concluir alteração"<<std::endl;
         }
     }
     catch (std::exception &e)
@@ -189,8 +194,10 @@ void Dono::avaliar_gerente()
         else
         {
             sqlite3_close(db);
-            if(!msg_erro)
+            if(!msg_erro && sqlite3_changes(db) > 0)
                 std::cout << "Avaliação de gerente cadastrada com sucesso!" << std::endl;
+            else
+                std::cout << "Não foi possível concluir alteração"<<std::endl;
         }
     }
     catch (std::exception &e)

@@ -47,4 +47,5 @@ double Pedido::get_tempo_espera(){
 }
 
 Pedido::~Pedido(){
+    
 }

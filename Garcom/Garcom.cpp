@@ -97,8 +97,10 @@ void Garcom::calcular_salariofinal(){
         else
         {
             sqlite3_close(db);
-            if(!msg_erro)
+            if(!msg_erro && sqlite3_changes(db) > 0)
                 std::cout << "Salário final do garçom cadastrado com sucesso!" << std::endl;
+            else
+                std::cout << "Não foi possível concluir alteração"<<std::endl;
         }
         
     }
@@ -165,8 +167,10 @@ void Garcom::finalizarPedido(){
         else
         {
             sqlite3_close(db);
-            if(!msg_erro)
+            if(!msg_erro && sqlite3_changes(db) > 0)
                 std::cout << "Pedido finalizado com sucesso!" << std::endl;
+            else
+                std::cout << "Não foi possível concluir alteração"<<std::endl;
         }
         
     }

@@ -61,8 +61,10 @@ void Gerente::avaliar_garcom()
         else
         {
             sqlite3_close(db);
-            if(!msg_erro)
+            if(!msg_erro && sqlite3_changes(db) > 0)
                 std::cout << "Avaliação de garçom cadastrada com sucesso!" << std::endl;
+            else
+                std::cout << "Não foi possível concluir alteração"<<std::endl;
         }
     }
     catch (std::exception &e)
@@ -101,8 +103,10 @@ void Gerente::calcular_salariofinal()
         else
         {
             sqlite3_close(db);
-            if(!msg_erro)
+            if(!msg_erro && sqlite3_changes(db) > 0)
                 std::cout << "Salário final do gerente cadastrado com sucesso!" << std::endl;
+            else
+                std::cout << "Não foi possível concluir alteração"<<std::endl;
         }
     }
     catch (std::exception &e)
@@ -142,8 +146,10 @@ void Gerente::demitir_garcom()
         else
         {
             sqlite3_close(db);
-            if(!msg_erro)
+            if(!msg_erro && sqlite3_changes(db) > 0)
                 std::cout << "Funcionário demitido com sucesso!" << std::endl;
+            else
+                std::cout << "Não foi possível concluir alteração"<<std::endl;
         }
     }
     catch (std::exception &e)
