@@ -22,7 +22,6 @@ class Restaurante(models.Model):
     nome = models.CharField(max_length=200, verbose_name="Nome do Restaurante")
     qtd_funcionarios = models.IntegerField(verbose_name="Quantidade de Funcionários")
     horario_funcionamento = models.CharField(max_length=100, verbose_name="Horário de Funcionamento")
-    cardapio = models.ManyToManyField(Item, verbose_name="Cardápio")
     telefone = models.CharField(max_length=25, verbose_name="Telefone do Restaurante")
 
     def __str__(self):
@@ -46,6 +45,7 @@ class Funcionario(models.Model):
     avaliacao = models.FloatField(blank=True, null=True, verbose_name="Avaliação do Funcionário")
     telefone = models.CharField(max_length=20, verbose_name="Telefone do Funcionário")
     restaurante = models.ForeignKey(Restaurante, on_delete=models.DO_NOTHING)
+    tem_usuario = models.BooleanField(verbose_name="Tem usuário ?", default=False)
 
     def __str__(self):
         return f"{self.nome} ({self.cpf})"

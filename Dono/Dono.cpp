@@ -44,7 +44,7 @@ void Dono::definir_salario()
         sqlite3_stmt *stmt;
         rc = sqlite3_open("./db.sqlite3", &db);
         std::string query = "SELECT cpf, nome, cargo FROM core_funcionario";
-        std::cout << "LISTA DE GERENTES: " << std::endl;
+        std::cout << "LISTA DE FUNCIONÁRIOS: " << std::endl;
         rc = sqlite3_exec(db, query.c_str(), callback_gerente, NULL, &msg_erro);
         std::cout << "============================================================" << std::endl;
         std::cout << "PREENCHA OS DADOS DO FUNCIONÁRIO QUE TERÁ O SALÁRIO DEFINIDO" << std::endl;
@@ -60,12 +60,13 @@ void Dono::definir_salario()
         if (rc != SQLITE_OK)
         {
             sqlite3_close(db);
-            throw std::invalid_argument("Erro ao definir salário de funcionário");
+            throw std::invalid_argument(msg_erro);
         }
         else
         {
             sqlite3_close(db);
-            std::cout << "Salário de funcionário definido com sucesso!" << std::endl;
+            if(!msg_erro)
+                std::cout << "Salário de funcionário definido com sucesso!" << std::endl;
         }
     }
     catch (std::exception &e)
@@ -89,7 +90,6 @@ void Dono::demitir_gerente()
         std::string query = "SELECT cpf, nome FROM core_funcionario WHERE cargo = 'G1'";
         std::cout << "LISTA DE GERENTES: " << std::endl;
         rc = sqlite3_exec(db, query.c_str(), callback_gerente, NULL, &msg_erro);
-        std::cout << "=========================================" << std::endl;
         std::cout << "========================================" << std::endl;
         std::cout << "PREENCHA O CPF DO GERENTE A SER DEMITIDO" << std::endl;
         std::cout << "========================================" << std::endl;
@@ -101,17 +101,18 @@ void Dono::demitir_gerente()
         if (rc != SQLITE_OK)
         {
             sqlite3_close(db);
-            throw std::invalid_argument("Erro ao deletar funcionário do banco de dados");
+            throw std::invalid_argument(msg_erro);
         }
         else
         {
             sqlite3_close(db);
-            std::cout << "Funcionário demitido com sucesso!" << std::endl;
+            if(!msg_erro)
+                std::cout << "Funcionário demitido com sucesso!" << std::endl;
         }
     }
     catch (std::exception &e)
     {
-        std::cout << "Erro ao acessar banco de dados" << std::endl;
+        std::cout << "Erro ao acessar banco de dados"<<e.what() << std::endl;
     }
 }
 
@@ -150,7 +151,6 @@ void Dono::contratar_gerente()
         std::cout << "Erro ao calcular salario final: " << e.what() << std::endl;
         delete g1;
     }
-    std::cout << "GERENTE CONTRATADO COM SUCESSO!" << std::endl;
     delete g1;
 }
 
@@ -184,12 +184,13 @@ void Dono::avaliar_gerente()
         if (rc != SQLITE_OK)
         {
             sqlite3_close(db);
-            throw std::invalid_argument("Erro atualizar avaliação de gerente no banco de dados");
+            throw std::invalid_argument(msg_erro);
         }
         else
         {
             sqlite3_close(db);
-            std::cout << "Avaliação de gerente cadastrada com sucesso!" << std::endl;
+            if(!msg_erro)
+                std::cout << "Avaliação de gerente cadastrada com sucesso!" << std::endl;
         }
     }
     catch (std::exception &e)

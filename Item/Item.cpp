@@ -24,8 +24,8 @@ Item::Item(std::string nome, std::string subtitulo, double preco, int codigo){
         else
         {
             sqlite3_close(db);
-            // tudo certo
-            std::cout << "TUDO PRONTO PARA CONTINUAR =)" << std::endl;
+            if(!zErrMsg)
+                std::cout << "Item cadastrado com sucesso!" << std::endl;
         }
     }
     catch (std::exception &e)

@@ -153,3 +153,30 @@ def criar_conta(request):
             return HttpResponseRedirect(reverse("login"))
 
     return render(request, "registration/criar_conta.html", context={"form_registro":form_registro})
+
+@login_required
+def adicionar_usuarios(request):
+    if request.method == "GET":
+        funcio_sem_usuarios = Funcionario.objects.filter(tem_usuario=False)
+        try:
+            for func in funcio_sem_usuarios:
+                if func.cargo == "G2":#Garçom
+                    username_fun = func.cpf.lower()
+                    password_fun = func.nome.lower()
+                    user = User.objects.create_user(username = username_fun, password=password_fun)
+                    permission = Permission.objects.get(codename='delete_pedido')
+                    user.user_permissions.add(permission)
+
+                if func.cargo == "G1":#Gerente
+                    username_fun = func.cpf.lower()
+                    password_fun = func.nome.lower()
+                    user = User.objects.create_superuser(username = username_fun, password=password_fun)
+                func.tem_usuario = True
+                func.save()
+
+        except Exception as e:
+            messages.error(request, "Algo de errado ao cadastrar usuários para os novos funcionários")
+        else:
+            messages.success(request, "Usuários cadastrados com sucesso")
+
+    return HttpResponseRedirect(reverse('index'))

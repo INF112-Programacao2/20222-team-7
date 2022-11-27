@@ -31,8 +31,8 @@ Funcionario::Funcionario(std::string nome, std::string cpf, int codigo, std::str
 
         int rc;
         sqlite3_stmt *stmt;
-        std::string query = "INSERT INTO core_funcionario (nome, cpf, data_contrato, carga_horaria, avaliacao, telefone, salario, cargo, restaurante_id) VALUES ('"+ _nome +"'"+ ",'"+_cpf+"','"+_data_contrato+"'" +
-        ","+std::to_string(_carga_horaria)+","+ std::to_string(_avaliacao)+",'"+telefone+"',"+ std::to_string(_salariominimo)+",'"+ _cargo+"',2)";
+        std::string query = "INSERT INTO core_funcionario (nome, cpf, data_contrato, carga_horaria, avaliacao, telefone, salario, cargo, restaurante_id, tem_usuario) VALUES ('"+ _nome +"'"+ ",'"+_cpf+"','"+_data_contrato+"'" +
+        ","+std::to_string(_carga_horaria)+","+ std::to_string(_avaliacao)+",'"+telefone+"',"+ std::to_string(_salariominimo)+",'"+ _cargo+"',2, false)";
 
         //std::cout << query << std::endl;
 
@@ -46,8 +46,8 @@ Funcionario::Funcionario(std::string nome, std::string cpf, int codigo, std::str
         else
         {
             sqlite3_close(db);
-            // tudo certo
-            std::cout << "TUDO PRONTO PARA CONTINUAR =)" << std::endl;
+            if(!msg_erro)
+                std::cout << "Funcionário cadastrado com sucesso!" << std::endl;
         }
         
     }

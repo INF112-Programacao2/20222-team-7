@@ -45,7 +45,7 @@ void Gerente::avaliar_garcom()
         std::cout << "=======================================================" << std::endl;
         std::cout << "PREENCHA O FORMULÁRIO ABAIXO PARA A AVALIAÇÃO DO GARÇOM" << std::endl;
         std::cout << "=======================================================" << std::endl;
-        std::cout << "CPF DO GERENTE: " << std::endl;
+        std::cout << "CPF DO GARÇOM: " << std::endl;
         std::cin >> cpf_garcom;
         std::cout << "AVALIAÇÃO: " << std::endl;
         std::cin >> avaliacao;
@@ -56,17 +56,18 @@ void Gerente::avaliar_garcom()
         if (rc != SQLITE_OK)
         {
             sqlite3_close(db);
-            throw std::invalid_argument("Erro atualizar avaliação de garçom no banco de dados");
+            throw std::invalid_argument(msg_erro);
         }
         else
         {
             sqlite3_close(db);
-            std::cout << "Avaliação de garçom cadastrada com sucesso!" << std::endl;
+            if(!msg_erro)
+                std::cout << "Avaliação de garçom cadastrada com sucesso!" << std::endl;
         }
     }
     catch (std::exception &e)
     {
-        std::cout << "Erro ao acessar banco de dados" << std::endl;
+        std::cout << "Erro ao acessar banco de dados"<< e.what() << std::endl;
     }
 }
 
@@ -95,12 +96,13 @@ void Gerente::calcular_salariofinal()
         if (rc != SQLITE_OK)
         {
             sqlite3_close(db);
-            throw std::invalid_argument("Erro ao atualizar salário de gerente no banco de dados");
+            throw std::invalid_argument(msg_erro);
         }
         else
         {
             sqlite3_close(db);
-            std::cout << "Salário final do gerente cadastrado com sucesso!" << std::endl;
+            if(!msg_erro)
+                std::cout << "Salário final do gerente cadastrado com sucesso!" << std::endl;
         }
     }
     catch (std::exception &e)
@@ -135,12 +137,13 @@ void Gerente::demitir_garcom()
         if (rc != SQLITE_OK)
         {
             sqlite3_close(db);
-            throw std::invalid_argument("Erro ao deletar funcionário do banco de dados");
+            throw std::invalid_argument(msg_erro);
         }
         else
         {
             sqlite3_close(db);
-            std::cout << "Funcionário demitido com sucesso!" << std::endl;
+            if(!msg_erro)
+                std::cout << "Funcionário demitido com sucesso!" << std::endl;
         }
     }
     catch (std::exception &e)

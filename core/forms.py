@@ -26,7 +26,11 @@ class FuncionarioForm(ModelForm):
 
         self.fields["restaurante"].initial = Restaurante.objects.first().id
         self.fields["restaurante"].readonly = True
-            
+        self.fields["tem_usuario"].initial = True
+        self.fields["tem_usuario"].widget.attrs["hidden"] = True
+        self.fields["tem_usuario"].label = ""
+        
+
 class PedidoForm(ModelForm):
     class Meta:
         model = Pedido

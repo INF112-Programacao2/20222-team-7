@@ -8,7 +8,6 @@
 static int callback_itens(void* data, int argc, char** argv, char** azColName)
 {
     int i;
-    std::cout << "ITEM DO PEDIDO"<< std::endl;
     
     for (i = 0; i < argc; i++) {
         std::cout << azColName[i] <<" = "<< (argv[i] ? argv[i] : "NULL") << std::endl;  
@@ -54,7 +53,6 @@ static int callback_pedidos(void* data, int argc, char** argv, char** azColName)
         {
             sqlite3_close(db);
             // tudo certo
-            std::cout << "TUDO PRONTO PARA CONTINUAR =)" << std::endl;
         }
     }
     catch (std::exception &e)
@@ -94,18 +92,19 @@ void Garcom::calcular_salariofinal(){
         if (rc != SQLITE_OK)
         {
             sqlite3_close(db);
-            throw std::invalid_argument("Erro ao atualizar salário de garçom no banco de dados");
+            throw std::invalid_argument(msg_erro);
         }
         else
         {
             sqlite3_close(db);
-            std::cout << "Salário final do garçom cadastrado com sucesso!" << std::endl;
+            if(!msg_erro)
+                std::cout << "Salário final do garçom cadastrado com sucesso!" << std::endl;
         }
         
     }
     catch (std::exception &e)
     {
-        std::cout << "Erro ao acessar banco de dados" << std::endl;
+        std::cout << "Erro ao acessar banco de dados"<< e.what() << std::endl;
     }
 }
 
@@ -124,12 +123,11 @@ void Garcom::verPedidos(){
         if (rc != SQLITE_OK)
         {
             sqlite3_close(db);
-            throw std::invalid_argument("Erro ao selecionar pedidos do banco de dados");
+            throw std::invalid_argument(msg_erro);
         }
         else
         {
             sqlite3_close(db);
-            std::cout << "Pedidos selecionados com sucesso!" << std::endl;
         }
         
     }
@@ -162,12 +160,13 @@ void Garcom::finalizarPedido(){
         if (rc1 != SQLITE_OK || rc2 != SQLITE_OK)
         {
             sqlite3_close(db);
-            throw std::invalid_argument("Erro ao finalizar pedido no banco de dados");
+            throw std::invalid_argument(msg_erro);
         }
         else
         {
             sqlite3_close(db);
-            std::cout << "Pedido finalizado com sucesso!" << std::endl;
+            if(!msg_erro)
+                std::cout << "Pedido finalizado com sucesso!" << std::endl;
         }
         
     }
