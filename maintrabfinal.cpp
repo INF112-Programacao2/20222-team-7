@@ -12,6 +12,9 @@ bool cliente_logado = false;
 bool garcom_logado = false;
 bool dono_logado = false;
 bool gerente_logado = false;
+Dono *dono_unico = new Dono(1, "GRUPO DILA");
+Restaurante *restaurante_unico = new Restaurante(*dono_unico, "Rua 1", "CompFood", 0, "8:00 - 22:00", "123456789");
+
 int main();
 
 void redirecionamento(boost::function<void()>funcao_cabecalho){
@@ -193,10 +196,51 @@ void cabecalho_garcom(Garcom &garcom){
     }
 }
 
-void cabecalho_cliente(){
+void cabecalho_cliente(Cliente &cliente){
+    int opc;
     std::cout << "=============================================================" << std::endl;
     std::cout << "FAZER PEDIDO - 6\n";
+    std::cout << "AVALIAR RESTAURANTE - 7\n";
     std::cout << "=============================================================" << std::endl;
+    std::cout << "ESCOLHA UMA OPÇÃO: "<< std::endl;
+    std::cin >> opc;
+    switch (opc)
+    {
+        case 6:
+            try
+            {
+                restaurante_unico->mostrar_cardapio();
+                cliente.fazer_pedido();
+            }
+            catch(const std::exception& e)
+            {
+                std::cerr << e.what() << '\n';
+            }
+            redirecionamento(boost::bind( &cabecalho_cliente, cliente) );
+            break;
+        case 7:
+            try
+            {
+                int avaliacao;
+                std::cout << "================='AVALIAÇÃO'=================" << std::endl;
+                std::cout << "DIGITE UMA NOTA PARA O RESTAURANTE: " << std::endl;
+                std::cout << "=============================================" << std::endl;
+                std::cin >> avaliacao;
+
+                cliente.avaliar_restaurante(*restaurante_unico, avaliacao);
+            }
+            catch(const std::exception& e)
+            {
+                std::cerr << e.what() << '\n';
+            }
+            redirecionamento(boost::bind( &cabecalho_cliente, cliente) );
+            break;
+        default:
+            std::cout << "OPÇÃO INVÁLIDA" << std::endl;
+            redirecionamento(boost::bind( &cabecalho_cliente, cliente) );
+            break;
+    }
+    
 }
 
 Cliente logar_cliente(){
@@ -285,7 +329,7 @@ Gerente logar_gerente(){
     return gerente;
 }
 
-Dono logar_dono(){
+void logar_dono(){
     std::string usuario, senha;
     std::cout << "============================" << std::endl;
     std::cout << "LOGIN DE PROPRIETÁRIO: \n";
@@ -311,8 +355,6 @@ Dono logar_dono(){
 
     }
 
-    Dono dono_default(1, "GRUPO DILA"); 
-    return dono_default;
 }
 
 int cabecalho_login(){
@@ -332,7 +374,6 @@ int cabecalho_login(){
 }
 int main(){
     int opc_login;
-    Dono dono_operador;
     Gerente gerente_operador ;
     Garcom garcom_operador ;
     Cliente  cliente_operador ;
@@ -341,7 +382,7 @@ int main(){
     switch (opc_login)
     {
     case 1:
-        dono_operador = logar_dono();
+        logar_dono();
         break;
     case 2:
         gerente_operador = logar_gerente();
@@ -365,14 +406,15 @@ int main(){
 
     }
     if (dono_logado)
-        cabecalho_dono(dono_operador);
+        cabecalho_dono(*dono_unico);
     else if(gerente_logado)
         cabecalho_gerente(gerente_operador);
     else if(garcom_logado)
         cabecalho_garcom(garcom_operador);
     else if(cliente_logado)
-        cabecalho_cliente();
+        cabecalho_cliente(cliente_operador);
 
-
+    delete dono_unico;
+    delete restaurante_unico;
     return 0;
 }
