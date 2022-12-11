@@ -8,6 +8,11 @@
 #include <boost/function.hpp>
 #include <boost/bind.hpp>
 
+// A modelagem do programa foi pensada para que haja um único dono e restaurante, algo que se assemelha, de forma distante, a um singleton
+// Nesse arquivo, que é o principal do programa, temos as variáveis globais que serão usadas para a verificação do tipo de usuário logado
+// Além disso, aqui mantemos os cabeçalhos que dão acesso às funções de cada tipo de OBJETO/USUÁRIO
+
+
 bool cliente_logado = false;
 bool garcom_logado = false;
 bool dono_logado = false;
@@ -18,6 +23,8 @@ Restaurante *restaurante_unico = new Restaurante(*dono_unico, "Rua 1", "CompFood
 int main();
 
 void redirecionamento(boost::function<void()>funcao_cabecalho){
+    // Essa função recebe um função de redirecionamento, que é a função que será chamada após o usuário realizar uma ação
+
     std::string opcao;
     std::cout << "DESEJA VOLTAR AO MENU ANTERIOR? (1 - SIM / 2 - NÃO)" << std::endl;
     std::cin >> opcao;
@@ -37,6 +44,7 @@ void cabecalho_boas_vindas(){
 }
 
 void cabecalho_dono(Dono &dono){
+    // Aqui mantemos ad funcionalidades do dono, que são as de gerenciar o restaurante e os funcionários
     int opc;
     std::cout << "=============================================================" << std::endl; 
     std::cout << "CONTRATAR GERENTE - 7\n";
@@ -109,6 +117,7 @@ void cabecalho_dono(Dono &dono){
 }
 
 void cabecalho_gerente(Gerente &gerente){
+    // Aqui mantemos as funcionalidades do gerente, que são as de gerenciar os garçons
     int opc;
     std::cout << "=============================================================" << std::endl;
     std::cout << "CONTRATAR GARCOM - 1\n";
@@ -166,6 +175,7 @@ void cabecalho_gerente(Gerente &gerente){
 }
 
 void cabecalho_garcom(Garcom &garcom){
+    // Aqui mantemos as funcionalidades do garçom, que são as de gerenciar os pedidos dos clientes
     int opc;
     std::cout << "=============================================================" << std::endl;    
     std::cout << "LISTAR PEDIDOS - 4\n";
@@ -211,6 +221,7 @@ void cabecalho_garcom(Garcom &garcom){
 }
 
 void cabecalho_cliente(Cliente &cliente){
+    // Aqui mantemos as funcionalidades do cliente, que são as de fazer pedidos e avaliar o restaurante
     int opc;
     std::cout << "=============================================================" << std::endl;
     std::cout << "FAZER PEDIDO - 6\n";
@@ -263,6 +274,9 @@ void cabecalho_cliente(Cliente &cliente){
 }
 
 Cliente logar_cliente(){
+    // Aqui logamos o cliente no sistema
+    // Algo que é importante de se notar é que, o sistema não é orientado ao cliente, mas sim ao gerenciamento do restaurante
+    // por isso, o cliente retornado é um cliente OPERADOR padrão, dado que as únicas funcionalidades do cliente são as de fazer pedidos e avaliar o restaurante
     std::string usuario, senha;
     std::cout << "============================" << std::endl;
     std::cout << "LOGIN DE CLIENTES: \n";
@@ -292,6 +306,9 @@ Cliente logar_cliente(){
 }
 
 Garcom logar_garcom(){
+    // Aqui logamos o garçom no sistema
+    // Como já explicamos acima, todos os garçons são operadores padrão, dado que as únicas funcionalidades do garçom são as de ver pedidos e finalizar pedidos
+    // Não precisamos de informações específicas do garçom para a operação do sistema, logo, apenas um objeto é necessário
     std::string usuario, senha;
     std::cout << "============================" << std::endl;
     std::cout << "LOGIN DE GARÇONS: \n";
@@ -321,6 +338,10 @@ Garcom logar_garcom(){
 }
 
 Gerente logar_gerente(){
+    // Aqui logamos o gerente no sistema
+    // Como já explicamos acima, todos os gerentes são operadores padrão, dado que as únicas funcionalidades do gerente são as de gerenciar os garçons
+    // Não precisamos de informações específicas do gerente para a operação do sistema, logo, apenas um objeto é necessário
+
     std::string usuario, senha;
     std::cout << "============================" << std::endl;
     std::cout << "LOGIN DE GERENTES: \n";
@@ -349,6 +370,8 @@ Gerente logar_gerente(){
 }
 
 void logar_dono(){
+    // Aqui logamos o dono, que é único, no sistema
+
     std::string usuario, senha;
     std::cout << "============================" << std::endl;
     std::cout << "LOGIN DE PROPRIETÁRIO: \n";
@@ -377,6 +400,7 @@ void logar_dono(){
 }
 
 int cabecalho_login(){
+    // Aqui temos o cabeçalho do login, que é exibido sempre que o usuário não está logado
     std::cout << "================================" << std::endl;
     std::cout << "ESCOLHA O TIPO DE LOGIN: \n";
     std::cout << "================================" << std::endl;
@@ -392,6 +416,7 @@ int cabecalho_login(){
     return opc;
 }
 int main(){
+    // A função main é a que faz as chamadas às funções principais, de acordo com as escolhas do usuário do sistema
     int opc_login;
     Gerente gerente_operador ;
     Garcom garcom_operador ;
