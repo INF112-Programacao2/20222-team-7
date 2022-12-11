@@ -6,6 +6,7 @@
 #include <string>
 #include "../Validacao/Validacao.h"
 
+//Função auxiliar para impressão de dados dos garçons
 static int callback_garcom(void *data, int argc, char **argv, char **azColName)
 {
     int i;
@@ -23,11 +24,16 @@ Gerente::Gerente()
 {
 }
 
-Gerente::Gerente(std::string nome, std::string cpf, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone, double salario) : Funcionario(nome, cpf, codigo, contratadoem, cargahoraria, avaliacao, telefone, salario, "G1"){};
+Gerente::Gerente(std::string nome, std::string cpf, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone, double salario) :
+    Funcionario(nome, cpf, codigo, contratadoem, cargahoraria, avaliacao, telefone, salario, "G1"){};
 
 void Gerente::avaliar_garcom()
 {
-    Validacao *validador = new Validacao();
+    // Esse método é responsável por recuperar os dados do garçom que será avaliado e 
+    // salvar essa avaliação no banco de dados
+
+
+    Validacao *validador = new Validacao(); //Objeto da classe Validacao, destinado a validar os dados de entrada 
     std::string cpf_garcom;
     double avaliacao;
     try

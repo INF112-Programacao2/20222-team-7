@@ -4,6 +4,7 @@
 #include "Restaurante.h"
 #include <sqlite3.h>
 
+// Função auxiliar para imprimir os itens do cardápio do restaurante
 static int callback_itens(void* data, int argc, char** argv, char** azColName)
 {
     int i;
@@ -56,6 +57,8 @@ double Restaurante::get_avaliacaomedia(){
 
 void Restaurante::set_avaliacao(double avaliacao)
 {
+    // Esse método recebe uma avaliação do usuário e atualiza a média de avaliações do restaurante no banco de dados
+    // Aqui, e em outros locais, utilizamos o conceito de ENCAPSULAMENTO, pois o usuário não tem acesso direto aos atributos da classe Restaurante
     _soma_avaliacao += avaliacao;
     _n_avaliacao++;
     double media = get_avaliacaomedia();
@@ -92,6 +95,7 @@ Restaurante::~Restaurante()
 }
 
 void Restaurante::mostrar_cardapio(){
+    // Esse método mostra o cardápio do restaurante, buscando os itens no banco de dados
     try{
         char *msg_erro;
         sqlite3 *db;

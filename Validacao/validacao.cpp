@@ -1,6 +1,12 @@
 #include "Validacao.h"
 #include <iostream>
 
+// A classe Validacao é responsável por validar os dados de entrada do usuário
+// para que não haja inconsistências no banco de dados
+// Aqui, podemos oragnizar as funções de validação de modo que elas sejam reutilizáveis e organizadas,
+// facilitando a manutenção do código e a usabilidade dessas funções, dado que a única necessidade é a criação 
+// de um objeto do tipo Validacao e a chamada de uma função de validação.
+
 bool Validacao::validarData(std::string data) {
     // 2020-10-10 exemplo de data aceita
     if (data.length() != 10) {

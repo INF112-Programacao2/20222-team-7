@@ -4,6 +4,7 @@
 #include <sqlite3.h>
 
 Item::Item(std::string nome, std::string subtitulo, double preco, int codigo){
+    // O construtor de Item recebe os dados do item a ser cadastrado e salva-o no banco de dados no ato da criação do objeto
     _nome = nome;
     _preco = preco;
     _codigo = codigo;

@@ -8,6 +8,7 @@ int Pedido::_qtd_pedidos=0;
 
 
 Pedido::Pedido(Cliente& cliente, std::vector <int> lista_itens, int mesa, int forma_pag, std::string descricao){
+    // O construtor de pedidos recebe os dados do pedido a ser cadastrado e salva-o no banco de dados no ato da criação do objeto
     _qtd_pedidos++;
     this->_cliente = cliente;
     this->_lista_itens = lista_itens;
@@ -22,30 +23,8 @@ Pedido::Pedido(Cliente& cliente, std::vector <int> lista_itens, int mesa, int fo
         char* msg_erro;
         rc = sqlite3_open("./db.sqlite3", &db);
 
-        std::string query = "SELECT preco FROM core_item WHERE id = ";
-        // for(int i=0; i<lista_itens.size(); i++){
-        //     std::string query_aux = query + std::to_string(lista_itens[i]);
-        //     sqlite3_stmt *stmt;
-        //     rc = sqlite3_prepare_v2(db, query_aux.c_str(), -1, &stmt, NULL);
-        //     if (rc != SQLITE_OK)
-        //     {
-        //         sqlite3_close(db);
-        //         throw std::invalid_argument("Não foi possível calcular o preço total do pedido");
-        //     }
-        //     else
-        //     {
-        //         rc = sqlite3_step(stmt);
-        //         if (rc == SQLITE_ROW)
-        //         {
-        //             this->_preco += sqlite3_column_double(stmt, 0);
-        //         }
-        //         else
-        //         {   
-        //             sqlite3_close(db);
-        //             throw std::invalid_argument("Não foi possível calcular o preço total do pedido");
-        //         }
-        //     }
-        // }
+        std::string query;
+        
         this->_preco = 0;
         query = "INSERT INTO core_pedido (cliente_id, mesa, forma_pagamento, descricao) VALUES ("+std::to_string(cliente.get_codigo())+", "+std::to_string(mesa)+", "+std::to_string(forma_pag)+", '"+descricao+"' )";
         rc = sqlite3_exec(db, query.c_str(), NULL, NULL, &msg_erro);

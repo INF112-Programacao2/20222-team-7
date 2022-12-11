@@ -29,6 +29,9 @@ int Cliente::get_mesa(){
 }
 
 void Cliente::fazer_pedido(){
+    // O código abaixo é responsável por gecuperar os dados de pedido do usuário e criar um objeto do tipo Pedido
+    // de forma dinâmica. O objeto é criado e logo em seguida é destruído, pois não há necessidade de armazená-lo, dado que
+    // suas informações serão salvas no banco de dados.
     std::vector <int> lista_itens;
     int mesa;
     int forma_pag; 
@@ -62,6 +65,6 @@ void Cliente::fazer_pedido(){
 }
 
 void Cliente::avaliar_restaurante(Restaurante &rest, double avaliacao){
-    
+    // Esse método recebe um objeto do tipo Restaurante e uma avaliação, e seta a avaliação do restaurante
     rest.set_avaliacao(avaliacao);
 }

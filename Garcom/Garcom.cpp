@@ -4,7 +4,7 @@
 #include <vector>
 #include <cstring>
 
-//Função callback para select de dados do banco de dados
+//Função auxiliar para impressão de dados de itens do pedido
 static int callback_itens(void* data, int argc, char** argv, char** azColName)
 {
     int i;
@@ -17,7 +17,7 @@ static int callback_itens(void* data, int argc, char** argv, char** azColName)
     return 0;
 }
 
-
+// Função auxiliar para a impressão dos dados dos pedidos
 static int callback_pedidos(void* data, int argc, char** argv, char** azColName)
 {
     int i;
@@ -33,8 +33,7 @@ static int callback_pedidos(void* data, int argc, char** argv, char** azColName)
         }
 
     }
-
-    // select dos itens do pedido
+    
     std::cout<<"+++++++++++++++++++++++++++++ITENS DO PEDIDO++++++++++++++++++++++++++++++"<<std::endl;
     std::string query = "SELECT pd.item_id, c.nome FROM core_pedido_lista_itens pd, core_item c WHERE pedido_id = "+ std::string(argv[0])+
     " AND pd.item_id = c.id";
@@ -43,6 +42,7 @@ static int callback_pedidos(void* data, int argc, char** argv, char** azColName)
         sqlite3 *db;
         int rc;
         rc = sqlite3_open("./db.sqlite3", &db);
+        // select dos itens do pedido
         rc = sqlite3_exec(db, query.c_str(), callback_itens, NULL, &msg_erro);
         if (rc != SQLITE_OK)
         {
@@ -74,6 +74,9 @@ Garcom::Garcom(std::string nome, std::string cpf,int codigo, std::string contrat
     Funcionario(nome, cpf, codigo,contratadoem,cargahoraria,avaliacao,telefone, salario, "G2"){};
 
 void Garcom::calcular_salariofinal(){
+    // Esse método é responsável por calcular o salário final do garçom
+    // Aqui utiliizamos o POLIMORFISMO, dado que a classe Garcom herda da classe Funcionario, e a classe Funcionario também 
+    // possui o método calcular_salariofinal, mas é implementado de forma diferente
     if(_carga_horaria <= 8){
         _salariofinal = _salariominimo;
     } else{
@@ -111,6 +114,7 @@ void Garcom::calcular_salariofinal(){
 }
 
 void Garcom::verPedidos(){
+    // Esse método é responsável por listar todos os pedidos que ainda constam no banco de dados
     std::cout<<"==========================PEDIDOS==========================="<<std::endl;
 
     try{
@@ -141,6 +145,8 @@ void Garcom::verPedidos(){
 }
 
 void Garcom::finalizarPedido(){
+    //  Esse método é responsável por recuperar as informações do pedido que o garçom deseja finalizar
+    //  e deletar o pedido do banco de dados.
     int id_pedido;
     std::cout << "\n==========================FINALIZAR PEDIDO===========================" << std::endl;
     std::cout << "Digite o ID do pedido que deseja finalizar: ";

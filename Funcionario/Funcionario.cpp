@@ -12,6 +12,7 @@ Funcionario::Funcionario(){
 
 Funcionario::Funcionario(std::string nome, std::string cpf, int codigo, std::string contratadoem, int cargahoraria, int avaliacao, std::string telefone, double salario, std::string cargo)
 {
+    // O construtor de FUncionário recebe os dados do funcionário a ser contratado e salva-o no banco de dados
     this->_nome = nome;
     this->_codigo = codigo;
     this->_data_contrato = contratadoem;
@@ -72,6 +73,8 @@ int Funcionario::get_codigo()
 
 void Funcionario::calcular_salariofinal()
 {
+    // Esse método calcula o salário final do funcionário, considerando a carga horária e o salário mínimo
+    // Aqui utiliizamos POLIMORFISMO nas classes filhas, dado que os cálculos de salário são diferentes para cada tipo de funcionário
     if (this->_carga_horaria <= 8)
     {
         this->_salariofinal = this->_salariominimo;

@@ -8,6 +8,7 @@
 
 static int callback_gerente(void *data, int argc, char **argv, char **azColName)
 {
+    // Essa função é uma função auxiliar para a impressão de dados dos gerentes do restaurante.
     int i;
 
     for (i = 0; i < argc; i++)
@@ -35,6 +36,8 @@ Dono::Dono(int codigo, std::string nome)
 
 void Dono::definir_salario()
 {
+    //  Esse método é responsável por recuperar as informações do funcionário que terá o salário definido e
+    //  salvar o novo salário no banco de dados.
     Validacao *validador = new Validacao();
     std::string cpf_funcionario;
     double salario;
@@ -88,6 +91,8 @@ void Dono::definir_salario()
 
 void Dono::demitir_gerente()
 {
+    //  Esse método é responsável por recuperar as informações do gerente que será demitido e
+    //  removê-lo do banco de dados.
     Validacao *validador = new Validacao();
     std::string cpf_gerente;
 
@@ -137,6 +142,8 @@ void Dono::demitir_gerente()
 
 void Dono::contratar_gerente()
 {
+    //  Esse método é responsável por recuperar as informações do gerente que será contratado e
+    //  inseri-lo no banco de dados.
     Validacao *validador = new Validacao();
     std::string nome, cpf, contratadoem, telefone;
     int codigo, cargahoraria, avaliacao;
@@ -195,6 +202,8 @@ void Dono::contratar_gerente()
 
 void Dono::avaliar_gerente()
 {
+    //  Esse método é responsável por recuperar as informações do gerente que será avaliado e
+    //  inserir essa nova avaliação no banco de dados.
     Validacao *validador = new Validacao();
     std::string cpf_gerente;
     double avaliacao;
