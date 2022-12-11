@@ -23,18 +23,15 @@ instaladas :
 Instale o sqlite3, usando:
 
 ```bash
-  apt-get install sqlite3 libsqlite3-dev
+    apt-get install sqlite3 libsqlite3-dev
 ```
 Para compilar:
 ```bash
-    g++  maintrabfinal.cpp Dono/Dono.cpp 
-    Funcionario/Funcionario.cpp Cliente/Cliente.cpp
-    Gerente/Gerente.cpp Garcom/Garcom.cpp Item/Item.cpp Pedido/Pedido.cpp 
-    Restaurante/Restaurante.cpp Validacao/validacao.cpp -l sqlite3
+    make
 ```
 Para executar:
 ```bash
-    ./a.out
+    make run
 ```
 Você também precisa do Python instalado para que consiga 
 executar o projeto como um todo. Feito isso, clone o projeto e, na pasta em que o projeto foi clonado, crie um ambiente virtual:
