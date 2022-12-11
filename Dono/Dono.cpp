@@ -3,6 +3,8 @@
 #include "Dono.h"
 #include <sqlite3.h>
 #include <iomanip>
+#include "../Validacao/Validacao.h"
+#include <boost/algorithm/string.hpp>
 
 static int callback_gerente(void *data, int argc, char **argv, char **azColName)
 {
@@ -10,7 +12,7 @@ static int callback_gerente(void *data, int argc, char **argv, char **azColName)
 
     for (i = 0; i < argc; i++)
     {
-        std::cout<<std::setw(5) << azColName[i] << " = " << (argv[i] ? argv[i] : "NULL") << "   ";
+        std::cout<<std::setw(5) << boost::to_upper_copy<std::string>(std::string(azColName[i])) << " = " << (argv[i] ? argv[i] : "NULL") << "   ";
     }
 
     std::cout << std::endl;
@@ -33,6 +35,7 @@ Dono::Dono(int codigo, std::string nome)
 
 void Dono::definir_salario()
 {
+    Validacao *validador = new Validacao();
     std::string cpf_funcionario;
     double salario;
 
@@ -52,6 +55,10 @@ void Dono::definir_salario()
         std::cout << "============================================================" << std::endl;
         std::cout << "CPF DO FUNCIONÁRIO: \n";
         std::cin >> cpf_funcionario;
+        while (!validador->validarCPF(cpf_funcionario))
+        {
+            std::cin >> cpf_funcionario;
+        }
         std::cout << "SALÁRIO DO FUNCIONÁRIO: \n";
         std::cin >> salario;
         std::cout << "=========================================" << std::endl;
@@ -76,10 +83,12 @@ void Dono::definir_salario()
     {
         std::cout << "Erro ao acessar banco de dados: " << e.what() << std::endl;
     }
+    delete validador;
 }
 
 void Dono::demitir_gerente()
 {
+    Validacao *validador = new Validacao();
     std::string cpf_gerente;
 
     try
@@ -98,6 +107,10 @@ void Dono::demitir_gerente()
         std::cout << "========================================" << std::endl;
         std::cout << "CPF: ";
         std::cin >> cpf_gerente;
+        while (!validador->validarCPF(cpf_gerente))
+        {
+            std::cin >> cpf_gerente;
+        }
         query = "DELETE FROM core_funcionario WHERE cpf = " + cpf_gerente;
 
         rc = sqlite3_exec(db, query.c_str(), NULL, NULL, &msg_erro);
@@ -119,10 +132,12 @@ void Dono::demitir_gerente()
     {
         std::cout << "Erro ao acessar banco de dados"<<e.what() << std::endl;
     }
+    delete validador;
 }
 
 void Dono::contratar_gerente()
 {
+    Validacao *validador = new Validacao();
     std::string nome, cpf, contratadoem, telefone;
     int codigo, cargahoraria, avaliacao;
     double salario;
@@ -130,11 +145,24 @@ void Dono::contratar_gerente()
     std::cout << "PREENCHA O FORMULÁRIO ABAIXO PARA A CONTRATAÇÃO DO GERENTE" << std::endl;
     std::cout << "==========================================================" << std::endl;
     std::cout << "NOME: " << std::endl;
-    std::cin >> nome;
+    std::cin.ignore();
+    std::getline(std::cin, nome);
+    while (!validador->validarNome(nome))
+    {
+        std::getline(std::cin, nome);
+    }
     std::cout << "CPF: " << std::endl;
     std::cin >> cpf;
+    while (!validador->validarCPF(cpf))
+    {
+        std::cin >> cpf;
+    }
     std::cout << "TELEFONE: " << std::endl;
     std::cin >> telefone;
+    while (!validador->validarTelefone(telefone))
+    {
+        std::cin >> telefone;
+    }
     std::cout << "CARGA HORÁRIA: " << std::endl;
     std::cin >> cargahoraria;
     std::cout << "AVALIAÇÃO INICIAL: " << std::endl;
@@ -143,24 +171,31 @@ void Dono::contratar_gerente()
     std::cin >> salario;
     std::cout << "DATA DE CONTRATAÇÃO (AAAA-MM-DD): " << std::endl;
     std::cin >> contratadoem;
+    while (!validador->validarData(contratadoem))
+    {
+        std::cin >> contratadoem;
+    }
     std::cout << "CÓDIGO IDENTIFICADOR: " << std::endl;
     std::cin >> codigo;
-
-    Gerente *g1 = new Gerente(nome, cpf, codigo, contratadoem, cargahoraria, avaliacao, telefone, salario);
+    
+    Gerente *g1;
     try
     {
+        g1 = new Gerente(nome, cpf, codigo, contratadoem, cargahoraria, avaliacao, telefone, salario);
         g1->calcular_salariofinal();
     }
     catch (const std::exception &e)
     {
-        std::cout << "Erro ao calcular salario final: " << e.what() << std::endl;
+        std::cout << "Erro no registro do Gerente: " << e.what() << std::endl;
         delete g1;
     }
     delete g1;
+    delete validador;
 }
 
 void Dono::avaliar_gerente()
 {
+    Validacao *validador = new Validacao();
     std::string cpf_gerente;
     double avaliacao;
 
@@ -181,6 +216,10 @@ void Dono::avaliar_gerente()
         std::cout << "==========================================================" << std::endl;
         std::cout << "CPF DO GERENTE: " << std::endl;
         std::cin >> cpf_gerente;
+        while (!validador->validarCPF(cpf_gerente))
+        {
+            std::cin >> cpf_gerente;
+        }
         std::cout << "AVALIAÇÃO: " << std::endl;
         std::cin >> avaliacao;
         query = "UPDATE core_funcionario SET avaliacao = " + std::to_string(avaliacao) + " WHERE cpf = " + cpf_gerente;
@@ -204,6 +243,7 @@ void Dono::avaliar_gerente()
     {
         std::cout << "Erro ao acessar banco de dados: " << e.what() << std::endl;
     }
+    delete validador;
 }
 
 std::string Dono::get_nome()

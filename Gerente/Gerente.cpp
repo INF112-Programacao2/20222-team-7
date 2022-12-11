@@ -4,6 +4,7 @@
 #include <sqlite3.h>
 #include <cstring>
 #include <string>
+#include "../Validacao/Validacao.h"
 
 static int callback_garcom(void *data, int argc, char **argv, char **azColName)
 {
@@ -26,6 +27,7 @@ Gerente::Gerente(std::string nome, std::string cpf, int codigo, std::string cont
 
 void Gerente::avaliar_garcom()
 {
+    Validacao *validador = new Validacao();
     std::string cpf_garcom;
     double avaliacao;
     try
@@ -47,6 +49,10 @@ void Gerente::avaliar_garcom()
         std::cout << "=======================================================" << std::endl;
         std::cout << "CPF DO GARÇOM: " << std::endl;
         std::cin >> cpf_garcom;
+        if (!validador->validarCPF(cpf_garcom))
+        {
+            std::cin >> cpf_garcom;
+        }
         std::cout << "AVALIAÇÃO: " << std::endl;
         std::cin >> avaliacao;
         
@@ -71,6 +77,7 @@ void Gerente::avaliar_garcom()
     {
         std::cout << "Erro ao acessar banco de dados"<< e.what() << std::endl;
     }
+    delete validador;
 }
 
 void Gerente::calcular_salariofinal()
@@ -117,6 +124,7 @@ void Gerente::calcular_salariofinal()
 
 void Gerente::demitir_garcom()
 {
+    Validacao *validador = new Validacao();
     std::string cpf_garcom;
     try
     {
@@ -135,6 +143,10 @@ void Gerente::demitir_garcom()
         std::cout << "=======================================" << std::endl;
         std::cout << "CPF: ";
         std::cin >> cpf_garcom;
+        if (!validador->validarCPF(cpf_garcom))
+        {
+            std::cin >> cpf_garcom;
+        }
         query = "DELETE FROM core_funcionario WHERE cpf = " + cpf_garcom;
 
         rc = sqlite3_exec(db, query.c_str(), NULL, NULL, &msg_erro);
@@ -156,10 +168,12 @@ void Gerente::demitir_garcom()
     {
         std::cout << "Erro ao acessar banco de dados" << std::endl;
     }
+    delete validador;
 }
 
 void Gerente::contratar_garcom()
 {
+    Validacao *validador = new Validacao();
     std::string nome, cpf, contratadoem, telefone;
     int codigo, cargahoraria, avaliacao;
     double salario;
@@ -167,13 +181,29 @@ void Gerente::contratar_garcom()
     std::cout << "PREENCHA O FORMULÁRIO ABAIXO PARA CONTRATAR UM NOVO GARÇOM" << std::endl;
     std::cout << "==========================================================" << std::endl;
     std::cout << "NOME: " << std::endl;
-    std::cin >> nome;
+    std::getline(std::cin, nome);
+    while(!validador->validarNome(nome))
+    {
+        std::getline(std::cin, nome);
+    }
     std::cout << "CPF: " << std::endl;
     std::cin >> cpf;
+    while(!validador->validarCPF(cpf))
+    {
+        std::cin >> cpf;
+    }
     std::cout << "TELEFONE: " << std::endl;
     std::cin >> telefone;
+    while(!validador->validarTelefone(telefone))
+    {
+        std::cin >> telefone;
+    }
     std::cout << "DATA DE CONTRATAÇÃO: " << std::endl;
     std::cin >> contratadoem;
+    while(!validador->validarData(contratadoem))
+    {
+        std::cin >> contratadoem;
+    }
     std::cout << "CARGA HORÁRIA: " << std::endl;
     std::cin >> cargahoraria;
     std::cout << "AVALIAÇÃO INICIAL: " << std::endl;
@@ -182,12 +212,18 @@ void Gerente::contratar_garcom()
     std::cin >> codigo;
     std::cout << "SALÁRIO: " << std::endl;
     std::cin >> salario;
-
-    Garcom *garcom = new Garcom(nome, cpf, codigo, contratadoem, cargahoraria, avaliacao, telefone, salario);
-    garcom->calcular_salariofinal();
-
+      
+    Garcom *garcom;
+    try{
+        garcom = new Garcom(nome, cpf, codigo, contratadoem, cargahoraria, avaliacao, telefone, salario);
+        garcom->calcular_salariofinal();
+    }catch(std::exception &e){
+        std::cout << "Erro ao cadastrar garçom" << std::endl;
+    }
     delete garcom;
+    delete validador;
 }
+
 
 Gerente::~Gerente()
 {

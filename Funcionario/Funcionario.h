@@ -9,7 +9,7 @@ class Funcionario
         std::string _nome;
         int _codigo;
         std::string _data_contrato;
-        double _salariominimo;          //salario minimo = 1200.00
+        double _salariominimo;  
         double _salariofinal;
         int _carga_horaria;
         int _avaliacao;
