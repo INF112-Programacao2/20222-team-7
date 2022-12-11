@@ -30,7 +30,7 @@ Para compilar:
     g++  maintrabfinal.cpp Dono/Dono.cpp 
     Funcionario/Funcionario.cpp Cliente/Cliente.cpp
     Gerente/Gerente.cpp Garcom/Garcom.cpp Item/Item.cpp Pedido/Pedido.cpp 
-    Restaurante/Restaurante.cpp Validacao/Validacao.cpp -l sqlite3
+    Restaurante/Restaurante.cpp Validacao/validacao.cpp -l sqlite3
 ```
 Para executar:
 ```bash
