@@ -24,7 +24,7 @@ class Pedido{
         Pedido(Cliente& cliente, std::vector <int> lista_itens, int mesa, int forma_pag, std::string descricao);
         double get_preco();
         int get_mesa();
-        std::string get_forma_pagamento();              //Nao sei se esse get sera util...
+        std::string get_forma_pagamento();
         std::string get_descricao();
         int get_codigo();
         double get_tempo_espera();

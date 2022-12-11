@@ -176,6 +176,7 @@ def adicionar_usuarios(request):
 
         except Exception as e:
             messages.error(request, "Algo de errado ao cadastrar usuários para os novos funcionários")
+            print(e)
         else:
             messages.success(request, "Usuários cadastrados com sucesso")
 

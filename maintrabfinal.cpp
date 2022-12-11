@@ -43,6 +43,7 @@ void cabecalho_dono(Dono &dono){
     std::cout << "DEMITIR GERENTE - 8\n";
     std::cout << "AVALIAR GERENTE - 9\n";
     std::cout << "DEFINIR SALÁRIO DE FUNCIONÁRIO - 10\n";
+    std::cout << "SAIR - 0\n";
     std::cout << "=============================================================" << std::endl;
     std::cout << "ESCOLHA UMA OPÇÃO: "<< std::endl;
     std::cin >> opc;
@@ -94,6 +95,10 @@ void cabecalho_dono(Dono &dono){
             }
             redirecionamento( boost::bind( &cabecalho_dono, dono ));
             break;
+        case 0:
+            std::cout << "OBRIGADO POR UTILIZAR NOSSO SISTEMA" << std::endl;
+            std::exit(0);
+            break;
         default:
             std::cout << "OPÇÃO INVÁLIDA" << std::endl;
             redirecionamento( boost::bind( &cabecalho_dono, dono ));
@@ -109,6 +114,7 @@ void cabecalho_gerente(Gerente &gerente){
     std::cout << "CONTRATAR GARCOM - 1\n";
     std::cout << "DEMITIR GARCOM - 2\n";
     std::cout << "AVALIAR GARCOM - 3\n";
+    std::cout << "SAIR - 0\n";
     std::cout << "=============================================================" << std::endl;
     std::cout << "ESCOLHA UMA OPÇÃO: "<< std::endl;
     std::cin >> opc;
@@ -148,6 +154,10 @@ void cabecalho_gerente(Gerente &gerente){
             }
             redirecionamento(boost::bind( &cabecalho_gerente, gerente ));
             break;
+        case 0:
+            std::cout << "OBRIGADO POR UTILIZAR NOSSO SISTEMA" << std::endl;
+            std::exit(0);
+            break;
         default:
             std::cout << "OPÇÃO INVÁLIDA" << std::endl;
             redirecionamento(boost::bind( &cabecalho_gerente, gerente ));
@@ -156,11 +166,11 @@ void cabecalho_gerente(Gerente &gerente){
 }
 
 void cabecalho_garcom(Garcom &garcom){
-// Mesma coisa com gerente;
     int opc;
     std::cout << "=============================================================" << std::endl;    
     std::cout << "LISTAR PEDIDOS - 4\n";
     std::cout << "FINALIZAR PEDIDO - 5\n";
+    std::cout << "SAIR - 0\n";
     std::cout << "=============================================================" << std::endl;
     std::cout << "ESCOLHA UMA OPÇÃO: "<< std::endl;
     std::cin >> opc;
@@ -189,6 +199,10 @@ void cabecalho_garcom(Garcom &garcom){
             }
             redirecionamento(boost::bind( &cabecalho_garcom, garcom) );
             break;
+        case 0:
+            std::cout << "OBRIGADO POR UTILIZAR NOSSO SISTEMA" << std::endl;
+            std::exit(0);
+            break;
         default:
             std::cout << "OPÇÃO INVÁLIDA" << std::endl;
             redirecionamento(boost::bind( &cabecalho_garcom, garcom) );
@@ -201,6 +215,7 @@ void cabecalho_cliente(Cliente &cliente){
     std::cout << "=============================================================" << std::endl;
     std::cout << "FAZER PEDIDO - 6\n";
     std::cout << "AVALIAR RESTAURANTE - 7\n";
+    std::cout << "SAIR - 0\n";
     std::cout << "=============================================================" << std::endl;
     std::cout << "ESCOLHA UMA OPÇÃO: "<< std::endl;
     std::cin >> opc;
@@ -234,6 +249,10 @@ void cabecalho_cliente(Cliente &cliente){
                 std::cerr << e.what() << '\n';
             }
             redirecionamento(boost::bind( &cabecalho_cliente, cliente) );
+            break;
+        case 0:
+            std::cout << "OBRIGADO POR UTILIZAR NOSSO SISTEMA" << std::endl;
+            std::exit(0);
             break;
         default:
             std::cout << "OPÇÃO INVÁLIDA" << std::endl;

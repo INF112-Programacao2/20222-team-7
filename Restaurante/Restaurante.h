@@ -18,8 +18,8 @@ private:
     int _num_funcionarios;
     std::string _horario_funcionamento;
     std::string _telefone;
-    double _soma_avaliacao;
-    int _n_avaliacao;
+    static double _soma_avaliacao;
+    static int _n_avaliacao;
 
 public:
     Restaurante(Dono &_dono, std::string _localizacao, std::string _nome, int _num_funcionarios, std::string _horario_funcionamento, std::string _telefone);
