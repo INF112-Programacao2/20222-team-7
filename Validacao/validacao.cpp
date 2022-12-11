@@ -31,10 +31,16 @@ bool Validacao::validarData(std::string data) {
         std::cout << "Data inválida. Digite um mês entre 01 e 12" << std::endl;
         return false;
     }
-    if (mes==2 && dia > 29) {
-        std::cout << "Data inválida. Fevereiro não tem mais de 29 dias" << std::endl;
+    //anos bissextos
+    if (mes==2 && ano%4==0 && dia > 29) {
+        std::cout << "Data inválida. Fevereiro não tem mais de 29 dias em anos bissextos" << std::endl;
         return false;
     }
+    if (mes==2 && ano%4!=0 && dia > 28) {
+        std::cout << "Data inválida. Fevereiro não tem mais de 28 dias em anos não bissextos" << std::endl;
+        return false;
+    }
+    
     if (dia < 1 || dia > 31) {
         std::cout << "Data inválida. Digite um dia entre 01 e 31" << std::endl;
         return false;
@@ -43,7 +49,7 @@ bool Validacao::validarData(std::string data) {
         std::cout << "Data inválida. Este mês não tem mais de 30 dias" << std::endl;
         return false;
     }
-    
+
     return true;
 }
 
