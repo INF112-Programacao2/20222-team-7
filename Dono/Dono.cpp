@@ -10,7 +10,7 @@ static int callback_gerente(void *data, int argc, char **argv, char **azColName)
 
     for (i = 0; i < argc; i++)
     {
-        std::cout<<std::setfill(' ')<<std::setw(5) << azColName[i] << " = " << (argv[i] ? argv[i] : "NULL") << "   ";
+        std::cout<<std::setw(5) << azColName[i] << " = " << (argv[i] ? argv[i] : "NULL") << "   ";
     }
 
     std::cout << std::endl;
